@@ -60,7 +60,7 @@
     var sig = document.querySelector('.bar .sig');
     var vb = sig.viewBox.baseVal;
     var lens = Array.prototype.map.call(sigLines, function (path) { return path.getTotalLength(); });
-    var idleTimer;
+    var hideTimer;
 
     // איפה המחט צריכה להיות: על הקו שנמשך עכשיו, ואחר כך על קצה המילוי
     function needlePoint(progress) {
@@ -68,9 +68,9 @@
         var offset = parseFloat(sigLines[i].style.strokeDashoffset) || 0;
         if (offset > 0.5) return sigLines[i].getPointAtLength(lens[i] - offset);
       }
-      var x = parseFloat(clip.getAttribute('width'));
+      var x = Math.max(vb.x, Math.min(parseFloat(clip.getAttribute('width')), vb.x + vb.width));
       var y = vb.y + vb.height * (0.5 + 0.32 * Math.sin(progress * 160));
-      return { x: Math.min(x, vb.x + vb.width), y: y };
+      return { x: x, y: y };
     }
 
     function moveHand(progress) {
@@ -81,29 +81,34 @@
       var screen = pt.matrixTransform(sig.getScreenCTM());
       var s = window.innerWidth < 760 ? 0.38 : 0.65;
       hand.style.transform = 'translate(' + (screen.x - 6) + 'px,' + (screen.y - 60) + 'px) rotate(-35deg) scale(' + -s + ',' + s + ')';
-      hand.classList.toggle('is-working', progress > 0.002 && progress < 0.998 && hand.dataset.scrolling === '1');
     }
 
-    var inkTl = gsap.timeline({
-      scrollTrigger: { trigger: document.documentElement, start: 'top top', end: 'bottom bottom', scrub: 0.5 },
-      onUpdate: function () { moveHand(inkTl.progress()); }
-    })
-      .to(sigLines, { strokeDashoffset: 0, ease: 'none', duration: 0.45, stagger: 0.03 }, 0)
-      .to(clip, { attr: { width: fullWidth }, ease: 'none', duration: 0.5 }, 0.45)
-      .to('.sig__stencil', { opacity: 0, ease: 'none', duration: 0.25 }, 0.7);
+    // קודם כל הקווים מסתיימים, ורק אז מתחיל המילוי, כדי שהמחט לא תקפוץ קדימה
+    var inkTl = gsap.timeline({ paused: true, onUpdate: function () { moveHand(inkTl.progress()); } })
+      .to(sigLines, { strokeDashoffset: 0, ease: 'none', duration: 0.18, stagger: 0.03 }, 0)
+      .to(clip, { attr: { width: fullWidth }, ease: 'none', duration: 0.5 }, 0.46)
+      .to('.sig__stencil', { opacity: 0, ease: 'none', duration: 0.2 }, 0.76);
 
-    // היד מופיעה רק בזמן שגוללים, ונעלמת כשעוצרים
-    if (hand) {
-      window.addEventListener('scroll', function () {
-        hand.dataset.scrolling = '1';
-        moveHand(inkTl.progress());
-        clearTimeout(idleTimer);
-        idleTimer = setTimeout(function () {
-          hand.dataset.scrolling = '0';
-          hand.classList.remove('is-working');
-        }, 700);
-      }, { passive: true });
-    }
+    // הדיו רק מתקדם: מה שנצבע נשאר, גם כשגוללים חזרה למעלה
+    var inked = 0;
+    window.ScrollTrigger.create({
+      trigger: document.documentElement, start: 'top top', end: 'bottom bottom',
+      onUpdate: function (self) {
+        if (self.progress <= inked + 0.0005) return;
+        inked = self.progress;
+        if (hand && inked < 0.999) {
+          hand.classList.add('is-working');
+          clearTimeout(hideTimer);
+        }
+        gsap.to(inkTl, {
+          progress: inked, duration: 0.6, ease: 'power2.out', overwrite: true,
+          onComplete: function () {
+            if (!hand) return;
+            hideTimer = setTimeout(function () { hand.classList.remove('is-working'); }, 250);
+          }
+        });
+      }
+    });
   }
 
   gsap.from('.hero [data-reveal], .hero__title', { y: 28, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.1 });

@@ -7,7 +7,7 @@
   --muted: #aeaba5;
   --accent: #8e24d6;       /* סגול של סטנסיל */
   --accent-hover: #a240e6;
-  --skin: #dcc6b0;         /* רקע הכותרת: עור */
+  --bar-bg: #ffffff;       /* רקע הפס העליון */
   --stencil: #7a1fb4;      /* קווי הסקיצה על העור */
   --tattoo-ink: #0b0b0b;
   --bar-h: clamp(64px, 6.4vw, 92px);
@@ -81,7 +81,7 @@ a { color: inherit; }
   position: sticky; top: 0; z-index: 40;
   display: flex; align-items: center; gap: 16px 40px;
   height: var(--bar-h); padding: 0 var(--m);
-  background: var(--skin); color: var(--tattoo-ink);
+  background: var(--bar-bg); color: var(--tattoo-ink);
 }
 .bar__name { display: block; height: clamp(40px, 4.4vw, 60px); flex: none; }
 .bar__nav { display: flex; gap: 4px 28px; margin-inline-start: auto; }
