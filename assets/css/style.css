@@ -1,3 +1,11 @@
+/* ===== Fonts ===== */
+@font-face {
+  font-family: 'Pirata One';
+  src: url('../fonts/pirata-one-latin-400-normal.woff2') format('woff2'),
+       url('../fonts/pirata-one-latin-400-normal.woff') format('woff');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+
 /* ===== Tokens ===== */
 :root {
   --bg: #0b0b0b;
@@ -127,7 +135,10 @@ a { color: inherit; }
 .hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(8, 8, 8, .62); }
 .hero__text { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 28px; }
-.hero__title { font-weight: 900; font-size: var(--step-display); line-height: .95; letter-spacing: -0.04em; max-width: 13ch; }
+.hero__title {
+  font-family: 'Pirata One', 'Heebo', serif; font-weight: 400; color: #ffffff;
+  font-size: clamp(3.5rem, 1.2rem + 9vw, 9.5rem); line-height: .9; letter-spacing: 0;
+}
 .hero .lead { max-width: 36ch; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 28px; }
 
