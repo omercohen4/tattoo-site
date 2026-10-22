@@ -44,7 +44,7 @@
   var gsap = window.gsap;
   gsap.registerPlugin(window.ScrollTrigger);
 
-  // SAHAR TZAIG: סקיצה סגולה -> קווי דיו -> מילוי בדיו, לפי הגלילה
+  // החתימה למעלה: סקיצה סגולה -> קווי דיו -> מילוי בדיו, לאורך כל הגלילה של העמוד
   var sigLines = document.querySelectorAll('.sig__line path');
   var clip = document.querySelector('.sig__clip');
   if (sigLines.length && clip) {
@@ -56,20 +56,21 @@
     });
     gsap.set(clip, { attr: { width: 0 } });
 
-    var ink = gsap.timeline({
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom bottom', scrub: 0.6 }
-    });
-    ink.to(sigLines, { strokeDashoffset: 0, ease: 'none', duration: 0.45, stagger: 0.03 }, 0)
-       .to(clip, { attr: { width: fullWidth }, ease: 'power1.inOut', duration: 0.5 }, 0.42)
-       .to('.sig__stencil', { opacity: 0, ease: 'none', duration: 0.3 }, 0.62);
+    gsap.timeline({
+      scrollTrigger: { trigger: document.documentElement, start: 'top top', end: 'bottom bottom', scrub: 0.5 }
+    })
+      .to(sigLines, { strokeDashoffset: 0, ease: 'none', duration: 0.45, stagger: 0.03 }, 0)
+      .to(clip, { attr: { width: fullWidth }, ease: 'none', duration: 0.5 }, 0.45)
+      .to('.sig__stencil', { opacity: 0, ease: 'none', duration: 0.25 }, 0.7);
   }
 
-  gsap.from('.hero__sub, .hero__row', { y: 24, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1, delay: 0.2 });
+  gsap.from('.hero [data-reveal], .hero__title', { y: 28, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.1 });
 
-  // פס התמונה: התקרבות עדינה בגלילה
-  gsap.from('.band img, .band video', {
-    scale: 1.12, ease: 'none',
-    scrollTrigger: { trigger: '.band', start: 'top bottom', end: 'bottom top', scrub: true }
+  // התמונה הראשית: התקרבות עדינה בטעינה, ותזוזה איטית בגלילה
+  gsap.from('.hero__media img, .hero__media video', { scale: 1.12, duration: 1.6, ease: 'power3.out' });
+  gsap.to('.hero__media img, .hero__media video', {
+    yPercent: 6, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
   });
 
   // העבודות עולות מתחת לכותרת הנעוצה
