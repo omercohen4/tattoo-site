@@ -44,15 +44,32 @@
   var gsap = window.gsap;
   gsap.registerPlugin(window.ScrollTrigger);
 
-  // הכותרת הראשית עולה שורה אחרי שורה
-  gsap.from('.hero__title .line > span', { yPercent: 110, duration: 1, ease: 'power4.out', stagger: 0.12 });
-  gsap.from('.hero [data-reveal]', { y: 24, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.09, delay: 0.35 });
+  // SAHAR TZAIG: סקיצה סגולה -> קווי דיו -> מילוי בדיו, לפי הגלילה
+  var sigLines = document.querySelectorAll('.sig__line path');
+  var clip = document.querySelector('.sig__clip');
+  if (sigLines.length && clip) {
+    var fullWidth = clip.getAttribute('width');
+    sigLines.forEach(function (path) {
+      var len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+    });
+    gsap.set(clip, { attr: { width: 0 } });
 
-  // התמונה הראשית: התקרבות עדינה בטעינה, ותזוזה איטית בגלילה
-  gsap.from('.hero__media img, .hero__media video', { scale: 1.12, duration: 1.6, ease: 'power3.out' });
-  gsap.to('.hero__media img, .hero__media video', {
-    yPercent: 8, ease: 'none',
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    var ink = gsap.timeline({
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom bottom', scrub: 0.6 }
+    });
+    ink.to(sigLines, { strokeDashoffset: 0, ease: 'none', duration: 0.45, stagger: 0.03 }, 0)
+       .to(clip, { attr: { width: fullWidth }, ease: 'power1.inOut', duration: 0.5 }, 0.42)
+       .to('.sig__stencil', { opacity: 0, ease: 'none', duration: 0.3 }, 0.62);
+  }
+
+  gsap.from('.hero__sub, .hero__row', { y: 24, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1, delay: 0.2 });
+
+  // פס התמונה: התקרבות עדינה בגלילה
+  gsap.from('.band img, .band video', {
+    scale: 1.12, ease: 'none',
+    scrollTrigger: { trigger: '.band', start: 'top bottom', end: 'bottom top', scrub: true }
   });
 
   // העבודות עולות מתחת לכותרת הנעוצה
