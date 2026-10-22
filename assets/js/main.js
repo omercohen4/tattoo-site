@@ -36,6 +36,13 @@
   var year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 
+  // מי שביקש פחות תנועה: הסרטון בפתיח עוצר על תמונת הפתיחה
+  var heroVideo = document.querySelector('.hero__media video');
+  if (heroVideo && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroVideo.removeAttribute('autoplay');
+    heroVideo.pause();
+  }
+
   // ===== תנועה (GSAP) =====
   // התוכן גלוי גם בלי סקריפט; האנימציות רק מוסיפות כניסה.
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
