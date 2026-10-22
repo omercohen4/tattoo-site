@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=7">
+  <link rel="stylesheet" href="assets/css/style.css?v=8">
 
   <script type="application/ld+json">
   {
@@ -105,20 +105,18 @@
 
   <main id="main">
     <section class="hero" id="top">
-      <div class="hero__text" data-reveal-group>
-        <h1 class="hero__title"><span class="sr-only">Sahar Tzaig, </span>מקעקע ברמת גן</h1>
-        <p class="lead" data-reveal>פיין-ליין, בלאק-וורק וכתב בעיצוב אישי, בסטודיו פרטי ושקט. בתיאום מראש.</p>
-        <div class="actions" data-reveal>
+      <video class="hero__video" poster="assets/video/hero-poster.jpg" width="368" height="460" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="assets/video/hero.mp4" type='video/mp4; codecs="avc1.42E01E"'>
+        <source src="assets/video/hero.webm" type="video/webm">
+      </video>
+      <div class="hero__text">
+        <h1 class="hero__title"><span class="sr-only">Sahar Tzaig, מקעקע ברמת גן: </span>אמנות שנשארת איתך לתמיד</h1>
+        <p class="lead">קעקועים בעיצוב אישי, מהסקיצה הראשונה ועד הקו האחרון. סטודיו פרטי ברמת גן, בתיאום מראש.</p>
+        <div class="actions">
           <a class="btn" href="https://wa.me/972500000000?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener">לקביעת תור בוואטסאפ</a>
           <a class="link" href="#work">לעבודות</a>
         </div>
       </div>
-      <figure class="hero__media">
-        <video poster="assets/video/hero-poster.jpg" width="368" height="460" autoplay muted loop playsinline preload="auto" aria-label="סרטון: סהר מקעקע, ועבודות גמורות שלו">
-          <source src="assets/video/hero.mp4" type='video/mp4; codecs="avc1.42E01E"'>
-          <source src="assets/video/hero.webm" type="video/webm">
-        </video>
-      </figure>
     </section>
 
     <section class="work is-final" id="work" aria-labelledby="work-title">
@@ -200,7 +198,7 @@
 
     <section class="about" id="about" aria-labelledby="about-title">
       <figure class="about__media">
-        <img src="assets/img/portrait.svg" width="1200" height="1500" loading="lazy" alt="סהר בסטודיו, בזמן עבודה">
+        <img src="assets/img/sahar-portrait.jpg" width="1048" height="1310" loading="lazy" alt="סהר מקעקע בסטודיו, רכון מעל הלקוח עם מכונת הקעקועים">
       </figure>
       <div class="about__text" data-reveal-group>
         <h2 class="h2" id="about-title" data-reveal>היי, אני סהר</h2>
@@ -302,6 +300,6 @@
 
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="assets/js/main.js?v=7" defer></script>
+  <script src="assets/js/main.js?v=8" defer></script>
 </body>
 </html>

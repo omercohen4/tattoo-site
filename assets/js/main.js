@@ -37,7 +37,7 @@
   if (year) year.textContent = new Date().getFullYear();
 
   // מי שביקש פחות תנועה: הסרטון בפתיח עוצר על תמונת הפתיחה
-  var heroVideo = document.querySelector('.hero__media video');
+  var heroVideo = document.querySelector('.hero__video');
   if (heroVideo && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     heroVideo.removeAttribute('autoplay');
     heroVideo.pause();
@@ -118,14 +118,8 @@
     });
   }
 
-  gsap.from('.hero [data-reveal], .hero__title', { y: 28, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.1 });
-
-  // התמונה הראשית: התקרבות עדינה בטעינה, ותזוזה איטית בגלילה
-  gsap.from('.hero__media img, .hero__media video', { scale: 1.12, duration: 1.6, ease: 'power3.out' });
-  gsap.to('.hero__media img, .hero__media video', {
-    yPercent: 6, ease: 'none',
-    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-  });
+  gsap.from('.hero__title, .hero .lead, .hero .actions', { y: 28, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 });
+  gsap.from('.hero__video', { scale: 1.08, duration: 1.8, ease: 'power3.out' });
 
   // העבודות עולות מתחת לכותרת הנעוצה
   items.forEach(function (li) {

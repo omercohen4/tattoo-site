@@ -117,16 +117,19 @@ a { color: inherit; }
 .hand__needle { stroke: var(--tattoo-ink); stroke-width: 1.6; stroke-linecap: round; }
 .hand__glove { fill: #161616; stroke: #6b6762; stroke-width: 1.4; stroke-linejoin: round; }
 
-/* ===== Hero ===== */
+/* ===== Hero: הסרטון על כל המסך, הכותרת במרכז ===== */
 .hero {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
-  align-items: end; padding: clamp(32px, 4vw, 64px) var(--m) 0;
+  position: relative; overflow: hidden;
+  min-height: calc(100svh - var(--bar-h));
+  display: flex; align-items: center; justify-content: center;
+  padding: 64px var(--m); text-align: center;
 }
-.hero__text { display: flex; flex-direction: column; gap: 32px; padding-bottom: 24px; }
-.hero__title { font-weight: 900; font-size: var(--step-display); line-height: .92; letter-spacing: -0.04em; max-width: 8ch; }
-.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
-.hero__media { justify-self: start; width: 100%; overflow: hidden; background: var(--surface-2); aspect-ratio: 4 / 5; max-height: calc(100svh - var(--bar-h) - 64px); }
-.hero__media img, .hero__media video { width: 100%; height: 100%; object-fit: cover; }
+.hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(8, 8, 8, .62); }
+.hero__text { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.hero__title { font-weight: 900; font-size: var(--step-display); line-height: .95; letter-spacing: -0.04em; max-width: 13ch; }
+.hero .lead { max-width: 36ch; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 28px; }
 
 /* ===== Work: עמודה נעוצה עם הכותרת, העבודות עוברות לצידה ===== */
 .work {
@@ -225,11 +228,6 @@ a { color: inherit; }
 .float-wa:active { transform: scale(.94); }
 
 /* ===== Phone ===== */
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; }
-  .hero__media { max-height: none; }
-}
-
 @media (max-width: 760px) {
   .bar { justify-content: space-between; }
   .bar__nav { display: none; }
