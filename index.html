@@ -25,7 +25,7 @@
 
   <link rel="preload" href="assets/fonts/heebo-hebrew-300-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/pirata-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/style.css?v=32">
+  <link rel="stylesheet" href="assets/css/style.css?v=33">
 
   <script type="application/ld+json">
   {
@@ -99,7 +99,9 @@
       <span class="bar__tag" aria-hidden="true"><span>T</span><span>A</span><span>T</span><span>T</span><span>O</span><span>O</span><span class="bar__tag-gap"></span><span>A</span><span>R</span><span>T</span><span>I</span><span>S</span><span>T</span></span>
     </a>
     <div class="bar__end">
-      <img class="bar__logo" src="assets/img/logo-ink-small.webp?v=2" width="200" height="229" alt="">
+      <button class="bar__logo-btn" type="button" aria-haspopup="dialog" aria-controls="card" aria-label="כרטיס הביקור של סהר">
+        <img class="bar__logo" src="assets/img/logo-ink-small.webp?v=2" width="200" height="228" alt="">
+      </button>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="פתיחת התפריט">
         <span></span><span></span><span></span>
       </button>
@@ -416,6 +418,26 @@
   </a>
 
 
+  <!-- כרטיס הביקור: נפתח בלחיצה על הלוגו בפס העליון -->
+  <dialog class="card" id="card" aria-labelledby="card-name">
+    <button class="card__close" type="button" aria-label="סגירת כרטיס הביקור">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="card__body">
+      <div class="card__text">
+        <p class="card__name" id="card-name" dir="ltr">Sahar Tzaig</p>
+        <p class="card__tag" aria-label="Tattoo Artist"><span>T</span><span>A</span><span>T</span><span>T</span><span>O</span><span>O</span><span class="card__tag-gap"></span><span>A</span><span>R</span><span>T</span><span>I</span><span>S</span><span>T</span></p>
+        <span class="card__rule" aria-hidden="true"></span>
+        <p class="card__line">קעקועים בעיצוב אישי · רמת גן</p>
+        <div class="card__actions">
+          <a class="btn btn--ink" href="https://wa.me/972500000000?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z"/></svg>וואטסאפ</a>
+          <a class="link" href="https://www.google.com/maps/search/?api=1&amp;query=%D7%90%D7%91%D7%90+%D7%94%D7%9C%D7%9C+7+%D7%A8%D7%9E%D7%AA+%D7%92%D7%9F" target="_blank" rel="noopener">אבא הלל 7, רמת גן</a>
+        </div>
+      </div>
+      <img class="card__logo" src="assets/img/logo-ink.webp" width="700" height="800" alt="איור של סהר מקעקע, עם אדמונית גדולה">
+    </div>
+  </dialog>
+
   <!-- יד עם מכונת קעקועים: עוקבת אחרי הדיו בחתימה בזמן הגלילה -->
   <div class="hand-layer" aria-hidden="true">
     <svg class="hand" viewBox="-6 -60 230 150" width="230" height="150" focusable="false">
@@ -437,6 +459,6 @@
 
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="assets/js/main.js?v=25" defer></script>
+  <script src="assets/js/main.js?v=33" defer></script>
 </body>
 </html>

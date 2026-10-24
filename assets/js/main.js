@@ -112,6 +112,50 @@
     });
   }
 
+  // כרטיס הביקור: לחיצה על הלוגו בפס העליון פותחת אותו, והוא "גדל" מהלוגו למרכז המסך
+  var logoBtn = document.querySelector('.bar__logo-btn');
+  var card = document.getElementById('card');
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // תנועה מהמיקום והגודל של הלוגו אל המיקום של הכרטיס (או בחזרה)
+  function fromLogo() {
+    var a = logoBtn.getBoundingClientRect();
+    var b = card.getBoundingClientRect();
+    var s = Math.max(a.height / b.height, 0.08);
+    var dx = (a.left + a.width / 2) - (b.left + b.width / 2);
+    var dy = (a.top + a.height / 2) - (b.top + b.height / 2);
+    return [
+      { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + s + ')', opacity: 0.2 },
+      { transform: 'none', opacity: 1 }
+    ];
+  }
+
+  function openCard() {
+    card.showModal();
+    document.body.classList.add('card-open');
+    if (!calm && card.animate) card.animate(fromLogo(), { duration: 450, easing: 'cubic-bezier(.2,.7,.2,1)' });
+  }
+
+  function closeCard() {
+    if (!card.open) return;
+    var done = function () {
+      card.close();
+      document.body.classList.remove('card-open');
+      logoBtn.focus();
+    };
+    if (calm || !card.animate) return done();
+    var anim = card.animate(fromLogo().reverse(), { duration: 320, easing: 'cubic-bezier(.4,0,.6,1)' });
+    anim.onfinish = done;
+  }
+
+  if (logoBtn && card && card.showModal) {
+    logoBtn.addEventListener('click', openCard);
+    card.querySelector('.card__close').addEventListener('click', closeCard);
+    // Esc ולחיצה על האזור הכהה שמחוץ לכרטיס סוגרים אותו, עם אותה תנועה בחזרה ללוגו
+    card.addEventListener('cancel', function (e) { e.preventDefault(); closeCard(); });
+    card.addEventListener('click', function (e) { if (e.target === card) closeCard(); });
+  }
+
   var year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 
