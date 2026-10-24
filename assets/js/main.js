@@ -112,6 +112,32 @@
     });
   }
 
+  // ביקורות: החצים מגלגלים כרטיס אחד בכל לחיצה, ונכבים בקצוות
+  var reviewList = document.querySelector('.reviews__list');
+  if (reviewList) {
+    var revPrev = document.querySelector('[data-review="prev"]');
+    var revNext = document.querySelector('[data-review="next"]');
+    var revStep = function () {
+      var first = reviewList.querySelector('.review');
+      return first ? first.getBoundingClientRect().width + parseFloat(getComputedStyle(reviewList).columnGap || 0) : 0;
+    };
+    var revUpdate = function () {
+      var max = reviewList.scrollWidth - reviewList.clientWidth;
+      var pos = Math.abs(reviewList.scrollLeft); // בעברית הגלילה היא לשמאל, והערך שלילי
+      revPrev.disabled = pos < 4;
+      revNext.disabled = pos > max - 4;
+    };
+    var revGo = function (dir) {
+      var smoothRev = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      reviewList.scrollBy({ left: -dir * revStep(), behavior: smoothRev ? 'smooth' : 'auto' });
+    };
+    revPrev.addEventListener('click', function () { revGo(-1); });
+    revNext.addEventListener('click', function () { revGo(1); });
+    reviewList.addEventListener('scroll', revUpdate, { passive: true });
+    window.addEventListener('resize', revUpdate);
+    revUpdate();
+  }
+
   // כרטיס הביקור: לחיצה על הלוגו בפס העליון פותחת אותו, והוא "גדל" מהלוגו למרכז המסך
   var logoBtn = document.querySelector('.bar__logo-btn');
   var card = document.getElementById('card');
@@ -265,7 +291,7 @@
     });
   });
 
-  document.querySelectorAll('.how .h2, .faq .h2, .contact .h2').forEach(function (h) {
+  document.querySelectorAll('.how .h2, .faq .h2, .reviews .h2, .contact .h2').forEach(function (h) {
     gsap.from(h, { y: 40, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
   });
 

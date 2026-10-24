@@ -401,9 +401,43 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 .faq__item h3 { font-weight: 400; font-size: var(--step-lead); line-height: 1.3; }
 .faq__item p { max-width: 46ch; }
 
+/* ===== Reviews ===== */
+.reviews {
+  padding: clamp(80px, 9vw, 140px) 0 clamp(80px, 9vw, 140px);
+  display: flex; flex-direction: column; gap: 56px;
+}
+.reviews__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; padding: 0 var(--m); }
+.reviews__nav { display: flex; gap: 12px; }
+.reviews__list {
+  list-style: none; margin: 0; padding: 0 var(--m) 8px;
+  display: grid; grid-auto-flow: column; grid-auto-columns: clamp(300px, 30vw, 440px); gap: clamp(16px, 2vw, 28px);
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--m);
+  scrollbar-width: none; overscroll-behavior-x: contain;
+}
+.reviews__list::-webkit-scrollbar { display: none; }
+.reviews__list:focus-visible { outline: 1px solid var(--muted); outline-offset: 4px; }
+.review { scroll-snap-align: start; }
+.review figure {
+  height: 100%; margin: 0; display: flex; flex-direction: column; gap: 28px;
+  padding: clamp(28px, 3vw, 40px); border: 1px solid #2c2a28; border-radius: var(--radius);
+  background: var(--surface);
+}
+.review__stars { display: flex; gap: 4px; }
+.review__stars svg { width: 16px; height: 16px; fill: var(--ink); }
+.review__text { margin: 0; flex: 1; position: relative; }
+.review__text::before {
+  content: "\201D"; display: block; font-family: 'Pirata One', serif;
+  font-size: 4.5rem; line-height: .6; height: .45em; color: var(--muted);
+}
+.review__text p { font-size: var(--step-lead); font-weight: 300; line-height: 1.5; }
+.review__who { display: flex; flex-direction: column; gap: 4px; padding-top: 20px; border-top: 1px solid #2c2a28; }
+.review__name { font-weight: 500; }
+.review__work { font-size: var(--step-small); color: var(--muted); }
+
 /* ===== Contact ===== */
 .contact {
-  padding: var(--gap) var(--m) 96px;
+  background: var(--surface);   /* החלק האחרון בעמוד, יחד עם שורת הזכויות */
+  padding: var(--gap) var(--m) 64px;
   display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px clamp(32px, 5vw, 80px); align-items: end;
 }
 .contact__main { display: flex; flex-direction: column; gap: 36px; align-items: flex-start; }
@@ -418,10 +452,9 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 .contact__details { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: var(--step-lead); }
 
 /* ===== Footer ===== */
-.footer { background: var(--surface); padding: 56px var(--m) 28px; overflow: hidden; }
+.footer { background: var(--surface); padding: 28px var(--m); border-top: 1px solid #2c2a28; }
 @media (max-width: 760px) { .footer { padding-bottom: 88px; } }
-.footer__sig { display: block; width: min(100%, 1100px); height: auto; fill: var(--ink); }
-.footer__small { margin-top: 20px; font-size: var(--step-small); color: var(--muted); }
+.footer__small { font-size: var(--step-small); color: var(--muted); }
 
 /* ===== WhatsApp צף ===== */
 .float-wa {
@@ -440,6 +473,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   .sig__stencil { stroke-width: 6; }
   .sig__line { stroke-width: 7; }
   .work, .about, .contact { grid-template-columns: 1fr; }
+  .reviews__list { grid-auto-columns: 84vw; }
   .work__head { grid-column: auto; grid-row: auto; position: relative; top: auto; }
   .work__controls { grid-column: auto; grid-row: auto; }
   .work__portrait { width: 140px; }
