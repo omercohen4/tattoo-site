@@ -13,13 +13,14 @@
   --surface-2: #1f1d1b;
   --ink: #e8e6e1;
   --muted: #aeaba5;
-  --accent: #8e24d6;       /* סגול של סטנסיל */
-  --accent-hover: #a240e6;
+  --accent: #ffffff;       /* שחור-לבן: הכפתורים לבנים */
+  --accent-hover: #e4e2dd;
   --bar-bg: #ffffff;       /* רקע הפס העליון */
-  --stencil: #7a1fb4;      /* קווי הסקיצה על העור */
+  --stencil: #9a9792;      /* קווי הסקיצה לפני הדיו */
   --tattoo-ink: #0b0b0b;
   --bar-h: clamp(64px, 6.4vw, 92px);
-  --accent-ink: #ffffff;
+  --accent-ink: #0b0b0b;
+  --radius: 6px;
 
   --font: 'Heebo', system-ui, sans-serif;
   --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
@@ -50,7 +51,7 @@ figure { margin: 0; }
 h1, h2, h3, p { margin: 0; }
 a { color: inherit; }
 ::selection { background: var(--accent); color: var(--accent-ink); }
-:focus-visible { outline: 3px solid var(--accent-hover); outline-offset: 3px; }
+:focus-visible { outline: 3px solid #ffffff; outline-offset: 3px; box-shadow: 0 0 0 6px #0b0b0b; }
 
 .skip {
   position: absolute; inset-inline-start: var(--m); top: -100px;
@@ -69,7 +70,7 @@ a { color: inherit; }
 /* ===== Buttons & links ===== */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
-  min-height: 56px; padding: 0 32px;
+  min-height: 56px; padding: 0 32px; gap: 12px; border-radius: var(--radius);
   background: var(--accent); color: var(--accent-ink);
   font-weight: 500; text-decoration: none;
   transition: background-color .2s var(--ease), transform .2s var(--ease);
@@ -77,12 +78,15 @@ a { color: inherit; }
 .btn:hover { background: var(--accent-hover); }
 .btn:active { transform: scale(.97); }
 .btn--small { min-height: 44px; padding: 0 22px; font-size: var(--step-small); }
+.bar .btn { background: var(--tattoo-ink); color: #ffffff; }
+.bar .btn:hover { background: #2c2a27; }
+.btn svg { flex: none; }
 
 .link {
   text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px;
   transition: text-decoration-color .2s var(--ease);
 }
-.link:hover { text-decoration-color: var(--accent-hover); }
+.link:hover { text-decoration-color: var(--muted); }
 
 /* ===== Header: נשאר למעלה; החתימה מתמלאת בדיו לאורך כל הגלילה ===== */
 .bar {
@@ -117,7 +121,7 @@ a { color: inherit; }
 .hand.is-working .hand__buzz { animation: buzz .06s steps(2) infinite; }
 @keyframes buzz { 50% { transform: translate(.6px, -.4px); } }
 .hand__cable { fill: none; stroke: #2c2a27; stroke-width: 4; stroke-linecap: round; }
-.hand__body { fill: var(--accent); stroke: var(--tattoo-ink); stroke-width: 1.5; }
+.hand__body { fill: #2c2a27; stroke: var(--tattoo-ink); stroke-width: 1.5; }
 .hand__ring { fill: #c9c4bb; stroke: var(--tattoo-ink); stroke-width: 1.2; }
 .hand__grip { fill: #2c2a27; stroke: var(--tattoo-ink); stroke-width: 1.5; }
 .hand__knurl { stroke: #4a4743; stroke-width: 1.2; }
@@ -215,7 +219,7 @@ a { color: inherit; }
 .contact__phone {
   background: var(--accent); color: var(--accent-ink); text-decoration: none;
   font-weight: 900; font-size: var(--step-head); line-height: 1;
-  letter-spacing: -0.03em; padding: 20px 28px;
+  letter-spacing: -0.03em; padding: 20px 28px; border-radius: var(--radius);
   transition: background-color .2s var(--ease), transform .2s var(--ease);
 }
 .contact__phone:hover { background: var(--accent-hover); }
@@ -232,10 +236,11 @@ a { color: inherit; }
 .float-wa {
   position: fixed; left: 20px; bottom: 20px; z-index: 50;
   width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
-  background: var(--accent); color: var(--accent-ink);
+  border-radius: 50%; background: #141414; color: #ffffff; border: 1px solid #3a3836;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
   transition: background-color .2s var(--ease), transform .2s var(--ease);
 }
-.float-wa:hover { background: var(--accent-hover); }
+.float-wa:hover { background: #262422; }
 .float-wa:active { transform: scale(.94); }
 
 /* ===== Phone ===== */

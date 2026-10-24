@@ -4,7 +4,7 @@
   var work = document.getElementById('work');
   var items = work ? Array.prototype.slice.call(work.querySelectorAll('.work__item')) : [];
 
-  // מעבר בין הסקיצה (הסטנסיל הסגול) לקעקוע הגמור
+  // מעבר בין הסקיצה (הסטנסיל) לקעקוע הגמור
   function setView(view) {
     work.classList.toggle('is-stencil', view === 'stencil');
     work.classList.toggle('is-final', view !== 'stencil');
@@ -51,7 +51,7 @@
   var gsap = window.gsap;
   gsap.registerPlugin(window.ScrollTrigger);
 
-  // החתימה למעלה: סקיצה סגולה -> קווי דיו -> מילוי בדיו, לאורך כל הגלילה של העמוד
+  // החתימה למעלה: סקיצה אפורה -> קווי דיו -> מילוי בדיו, לאורך כל הגלילה של העמוד
   var sigLines = document.querySelectorAll('.sig__line path');
   var clip = document.querySelector('.sig__clip');
   if (sigLines.length && clip) {
