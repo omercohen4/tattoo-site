@@ -276,8 +276,8 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   font-size: clamp(3.5rem, 1.2rem + 9vw, 9.5rem); line-height: .9; letter-spacing: 0;
 }
 .hero .lead { max-width: 36ch; color: #d6d2cb; }
-.actions--stack { flex-direction: column; gap: 20px; }
-.actions--stack .btn { min-width: min(320px, 80vw); }
+.actions.is-stacked { flex-direction: column; gap: 20px; }
+.actions.is-stacked .btn { min-width: min(320px, 80vw); }
 .actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 28px; }
 
 /* ===== Work: עמודה נעוצה עם הכותרת, העבודות עוברות לצידה ===== */

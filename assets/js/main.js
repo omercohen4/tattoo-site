@@ -241,8 +241,11 @@
     });
   }
 
-  gsap.from('.hero__title, .hero .lead, .hero .actions', { y: 28, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 });
-  gsap.from('.hero__video', { scale: 1.08, duration: 1.8, ease: 'power3.out' });
+  // הפתיח מוסתר כרגע (בהערה ב-index.html); האנימציות שלו רצות רק אם הוא חוזר
+  if (document.querySelector('.hero')) {
+    gsap.from('.hero__title, .hero .lead, .hero .actions', { y: 28, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 });
+    gsap.from('.hero__video', { scale: 1.08, duration: 1.8, ease: 'power3.out' });
+  }
 
   // העבודות עולות מתחת לכותרת הנעוצה
   items.forEach(function (li) {
@@ -254,7 +257,9 @@
 
   // כניסה מדורגת לכל קבוצת תוכן
   document.querySelectorAll('main section:not(.hero) [data-reveal-group]').forEach(function (group) {
-    gsap.from(group.querySelectorAll('[data-reveal]'), {
+    var parts = group.querySelectorAll('[data-reveal]');
+    if (!parts.length) return;
+    gsap.from(parts, {
       y: 28, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08,
       scrollTrigger: { trigger: group, start: 'top 85%', once: true }
     });
@@ -262,11 +267,6 @@
 
   document.querySelectorAll('.how .h2, .faq .h2, .contact .h2').forEach(function (h) {
     gsap.from(h, { y: 40, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: h, start: 'top 88%', once: true } });
-  });
-
-  gsap.from('.about__media img', {
-    scale: 1.15, ease: 'none',
-    scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'center center', scrub: true }
   });
 
   gsap.from('.contact__phone', {
