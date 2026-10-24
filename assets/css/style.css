@@ -334,9 +334,21 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 .about__text p:not(.lead) { max-width: 52ch; }
 
 /* ===== How ===== */
-.how { padding: var(--gap) var(--m) 0; display: flex; flex-direction: column; gap: clamp(56px, 7vw, 112px); }
+.how {
+  position: relative; isolation: isolate;
+  padding: clamp(80px, 9vw, 140px) var(--m);
+  display: flex; flex-direction: column; gap: clamp(48px, 5vw, 80px);
+}
+/* רקע: סהר בעבודה, בצד שמאל; הטקסט כולו בצד ימין, על החלק הכהה */
+.how::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(to left, var(--bg) 0%, rgba(11, 11, 11, .9) 42%, rgba(11, 11, 11, .4) 78%, rgba(11, 11, 11, .55) 100%),
+    url('../img/how-bg.jpg') left 30% / auto 100% no-repeat, var(--bg);
+}
+.how > * { max-width: 640px; }
 .how__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 44px; }
-.how__list li { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 12px 48px; align-items: baseline; }
+.how__list li { display: grid; grid-template-columns: 1fr; gap: 8px; }
 .how__verb { font-weight: 900; font-size: var(--step-head); line-height: 1; letter-spacing: -0.03em; }
 .how__list p { max-width: 46ch; }
 
@@ -398,6 +410,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   .work__list { gap: 24px 12px; }
   .work__item.is-offset { transform: translateY(24%); }
   .how__list li, .faq__item { grid-template-columns: 1fr; }
+  .how::before { background: linear-gradient(rgba(11, 11, 11, .8), rgba(11, 11, 11, .8)), url('../img/how-bg.jpg') 35% center / cover no-repeat; }
   .about::before { background: linear-gradient(rgba(11, 11, 11, .78), rgba(11, 11, 11, .78)), url('../img/about-bg.jpg') 30% center / cover no-repeat; }
   .float-wa { left: 12px; bottom: 12px; width: 56px; height: 56px; }
   .hand-layer { bottom: auto; height: var(--bar-h); }
