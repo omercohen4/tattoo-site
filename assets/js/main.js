@@ -4,31 +4,56 @@
   var work = document.getElementById('work');
   var items = work ? Array.prototype.slice.call(work.querySelectorAll('.work__item')) : [];
 
-  // סינון: קעקועים או ציורים. כשאין עבודות בסוג שנבחר, מופיעה הודעה במקומן
+  // סינון: קעקועים או ציורים, 6 עבודות בכל עמוד. כשאין עבודות בסוג שנבחר, מופיעה הודעה במקומן
+  var PER_PAGE = 6;
   var empty = work ? work.querySelector('.work__empty') : null;
-  function setFilter(type) {
-    var shown = 0;
-    items.forEach(function (li) {
-      li.hidden = li.dataset.style !== type;
-      // כל עבודה שנייה מבין המוצגות יורדת קצת, כדי שהעמודות יהיו מדורגות
-      li.classList.toggle('is-offset', !li.hidden && shown % 2 === 1);
-      if (!li.hidden) shown++;
+  var pager = work ? work.querySelector('.pager') : null;
+  var pagerPages = pager ? pager.querySelector('.pager__pages') : null;
+  var current = { type: 'tattoo', page: 1 };
+
+  function render() {
+    var ofType = items.filter(function (li) { return li.dataset.style === current.type; });
+    var pages = Math.max(1, Math.ceil(ofType.length / PER_PAGE));
+    current.page = Math.min(current.page, pages);
+    var first = (current.page - 1) * PER_PAGE;
+    items.forEach(function (li) { li.hidden = true; li.classList.remove('is-offset'); });
+    ofType.slice(first, first + PER_PAGE).forEach(function (li, i) {
+      li.hidden = false;
+      // כל עבודה שנייה יורדת קצת, כדי שהעמודות יהיו מדורגות
+      li.classList.toggle('is-offset', i % 2 === 1);
     });
-    if (empty) empty.hidden = shown > 0;
+    if (empty) empty.hidden = ofType.length > 0;
     work.querySelectorAll('[data-filter]').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.dataset.filter === type));
+      b.setAttribute('aria-pressed', String(b.dataset.filter === current.type));
     });
+    if (pager) {
+      pager.hidden = pages < 2;
+      pagerPages.innerHTML = '';
+      for (var n = 1; n <= pages; n++) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'pager__num';
+        btn.dataset.page = String(n);
+        btn.textContent = String(n);
+        btn.setAttribute('aria-label', 'עמוד ' + n);
+        if (n === current.page) btn.setAttribute('aria-current', 'page');
+        pagerPages.appendChild(btn);
+      }
+      pager.querySelector('[data-page="prev"]').disabled = current.page === 1;
+      pager.querySelector('[data-page="next"]').disabled = current.page === pages;
+    }
     if (window.ScrollTrigger) window.ScrollTrigger.refresh();
   }
 
-  // החלפת לשונית לא מזיזה את הדף: הלשוניות נשארות באותו מקום על המסך,
-  // ואם גללו לתוך העבודות, חוזרים לתחילת הרשימה החדשה, ממש מתחת ללשוניות
+  // מעבר בין לשוניות או עמודים לא מזיז את הדף: הלשוניות נשארות באותו מקום על המסך,
+  // ואם גללו לתוך העבודות, חוזרים לתחילת הרשימה, ממש מתחת ללשוניות
   var controls = work ? work.querySelector('.work__controls') : null;
   var list = work ? work.querySelector('.work__list') : null;
-  function switchTab(type) {
+  function update(change, toListStart) {
     var before = controls.getBoundingClientRect().top;
-    var wasInsideList = list.getBoundingClientRect().top < before;
-    setFilter(type);
+    var wasInsideList = toListStart || list.getBoundingClientRect().top < before;
+    change();
+    render();
     var y = window.scrollY + (controls.getBoundingClientRect().top - before);
     if (wasInsideList) {
       y = window.scrollY + list.getBoundingClientRect().top - controls.getBoundingClientRect().bottom - 16;
@@ -37,10 +62,19 @@
   }
 
   if (work) {
-    setFilter('tattoo');
+    render();
     work.addEventListener('click', function (e) {
-      var btn = e.target.closest('button[data-filter]');
-      if (btn && btn.getAttribute('aria-pressed') !== 'true') switchTab(btn.dataset.filter);
+      var tab = e.target.closest('button[data-filter]');
+      if (tab && tab.getAttribute('aria-pressed') !== 'true') {
+        update(function () { current.type = tab.dataset.filter; current.page = 1; });
+      }
+      var step = e.target.closest('.pager button');
+      if (step && !step.disabled && step.getAttribute('aria-current') !== 'page') {
+        update(function () {
+          var p = step.dataset.page;
+          current.page = p === 'prev' ? current.page - 1 : p === 'next' ? current.page + 1 : Number(p);
+        }, true);
+      }
     });
   }
 

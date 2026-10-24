@@ -269,6 +269,22 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 .work__portrait { width: clamp(150px, 15vw, 230px); aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; }
 .work__portrait img { width: 100%; height: 100%; object-fit: cover; }
 .work__list, .work__empty { grid-column: 2; grid-row: 2; }
+/* מעבר בין עמודי העבודות */
+.pager {
+  grid-column: 2; grid-row: 3; margin-top: clamp(64px, 12vw, 160px);
+  display: flex; align-items: center; justify-content: center; gap: 12px 20px; flex-wrap: wrap;
+}
+.pager[hidden] { display: none; }
+.pager__pages { display: flex; gap: 8px; }
+.pager button {
+  min-width: 48px; min-height: 48px; padding: 0 16px; cursor: pointer;
+  border: 1px solid #3a3836; border-radius: var(--radius); background: transparent;
+  color: var(--ink); font: inherit; font-size: var(--step-body);
+  transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.pager button:hover:not(:disabled) { border-color: var(--ink); }
+.pager button[aria-current="page"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.pager button:disabled { opacity: .35; cursor: default; }
 .work__empty { align-self: start; color: var(--muted); font-size: var(--step-lead); padding-top: 24px; }
 .work__note { font-size: var(--step-lead); font-weight: 300; line-height: 1.5; max-width: 26ch; }
 /* הלשוניות נצמדות מעל העבודות, כך שתמיד אפשר להחליף בין קעקועים לציורים */
@@ -373,7 +389,8 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   .work__head { grid-column: auto; grid-row: auto; position: relative; top: auto; }
   .work__controls { grid-column: auto; grid-row: auto; }
   .work__portrait { width: 140px; }
-  .work__list, .work__empty { grid-column: auto; grid-row: auto; }
+  .work__list, .work__empty, .pager { grid-column: auto; grid-row: auto; }
+  .pager { margin-top: 96px; }
   .work__list { gap: 24px 12px; }
   .work__item.is-offset { transform: translateY(24%); }
   .how__list li, .faq__item { grid-template-columns: 1fr; }
