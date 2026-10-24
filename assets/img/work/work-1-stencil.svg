@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500">
-<rect width="1200" height="1500" fill="#d9c2ab"/>
-  <path d="M600 1250 C 590 1000, 640 760, 600 380" fill="none" stroke="#22201e" stroke-width="4" stroke-linecap="round"/>
-  <path d="M605 1150 q -170 -40 -230 -150 q 120 10 230 150" fill="none" stroke="#22201e" stroke-width="4" stroke-linejoin="round"/><path d="M605 1010 q 170 -40 230 -150 q -120 10 -230 150" fill="none" stroke="#22201e" stroke-width="4" stroke-linejoin="round"/><path d="M605 870 q -170 -40 -230 -150 q 120 10 230 150" fill="none" stroke="#22201e" stroke-width="4" stroke-linejoin="round"/><path d="M605 730 q 170 -40 230 -150 q -120 10 -230 150" fill="none" stroke="#22201e" stroke-width="4" stroke-linejoin="round"/><path d="M605 590 q -170 -40 -230 -150 q 120 10 230 150" fill="none" stroke="#22201e" stroke-width="4" stroke-linejoin="round"/><path d="M605 450 q 170 -40 230 -150 q -120 10 -230 150" fill="none" stroke="#22201e" stroke-width="4" stroke-linejoin="round"/>
-  <circle cx="600" cy="360" r="34" fill="none" stroke="#22201e" stroke-width="4"/>
-<text x="1160" y="1460" text-anchor="end" font-family="sans-serif" font-size="34" fill="#000" fill-opacity=".35">תמונה זמנית</text>
-</svg>
