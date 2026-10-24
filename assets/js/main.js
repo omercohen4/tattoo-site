@@ -21,13 +21,40 @@
     if (window.ScrollTrigger) window.ScrollTrigger.refresh();
   }
 
+  // החלפת לשונית לא מזיזה את הדף: הלשוניות נשארות באותו מקום על המסך,
+  // ואם גללו לתוך העבודות, חוזרים לתחילת הרשימה החדשה, ממש מתחת ללשוניות
+  var controls = work ? work.querySelector('.work__controls') : null;
+  var list = work ? work.querySelector('.work__list') : null;
+  function switchTab(type) {
+    var before = controls.getBoundingClientRect().top;
+    var wasInsideList = list.getBoundingClientRect().top < before;
+    setFilter(type);
+    var y = window.scrollY + (controls.getBoundingClientRect().top - before);
+    if (wasInsideList) {
+      y = window.scrollY + list.getBoundingClientRect().top - controls.getBoundingClientRect().bottom - 16;
+    }
+    window.scrollTo({ top: Math.max(0, y), behavior: 'instant' });
+  }
+
   if (work) {
     setFilter('tattoo');
     work.addEventListener('click', function (e) {
       var btn = e.target.closest('button[data-filter]');
-      if (btn) setFilter(btn.dataset.filter);
+      if (btn && btn.getAttribute('aria-pressed') !== 'true') switchTab(btn.dataset.filter);
     });
   }
+
+  // גלילה חלקה לקישורים בתוך הדף (במקום scroll-behavior ב-CSS, שמתנגש עם ספריית האנימציות)
+  var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute('href').length < 2) return;
+    var target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: smooth ? 'smooth' : 'instant', block: 'start' });
+    history.replaceState(null, '', a.getAttribute('href'));
+  });
 
   // תפריט ☰: מגירה בצד, נסגרת בלחיצה על קישור, מחוץ למגירה, על הכפתור או על Esc
   var menuBtn = document.querySelector('.menu-btn');
