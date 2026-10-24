@@ -195,13 +195,13 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 /* ===== יד עם מכונת קעקועים ===== */
 .hand-layer { position: fixed; inset: 0; z-index: 45; pointer-events: none; overflow: hidden; }
 .hand {
-  position: absolute; left: 0; top: 0; width: 330px; height: 150px; overflow: visible;
+  position: absolute; left: 0; top: 0; width: 230px; height: 150px; overflow: visible;
   transform-origin: 6px 60px; opacity: 0; transition: opacity .35s var(--ease);
 }
 .hand.is-working { opacity: 1; }
 .hand.is-working .hand__buzz { animation: buzz .06s steps(2) infinite; }
 @keyframes buzz { 50% { transform: translate(.6px, -.4px); } }
-.hand__cable { fill: none; stroke: #2c2a27; stroke-width: 4; stroke-linecap: round; }
+.hand__cuff { fill: none; stroke: #6b6762; stroke-width: 1.4; stroke-linecap: round; }
 .hand__body { fill: #2c2a27; stroke: var(--tattoo-ink); stroke-width: 1.5; }
 .hand__ring { fill: #c9c4bb; stroke: var(--tattoo-ink); stroke-width: 1.2; }
 .hand__grip { fill: #2c2a27; stroke: var(--tattoo-ink); stroke-width: 1.5; }
@@ -400,6 +400,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   .how__list li, .faq__item { grid-template-columns: 1fr; }
   .about::before { background: linear-gradient(rgba(11, 11, 11, .78), rgba(11, 11, 11, .78)), url('../img/about-bg.jpg') 30% center / cover no-repeat; }
   .float-wa { left: 12px; bottom: 12px; width: 56px; height: 56px; }
+  .hand-layer { bottom: auto; height: var(--bar-h); }
 }
 
 @media (prefers-reduced-motion: reduce) {

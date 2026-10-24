@@ -165,7 +165,7 @@
       var pt = sig.createSVGPoint();
       pt.x = p.x; pt.y = p.y;
       var screen = pt.matrixTransform(sig.getScreenCTM());
-      var s = window.innerWidth < 760 ? 0.38 : 0.65;
+      var s = window.innerWidth < 760 ? 0.36 : 0.62;
       hand.style.transform = 'translate(' + (screen.x - 6) + 'px,' + (screen.y - 60) + 'px) rotate(-35deg) scale(' + -s + ',' + s + ')';
     }
 
