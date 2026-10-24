@@ -10,6 +10,8 @@
     var shown = 0;
     items.forEach(function (li) {
       li.hidden = li.dataset.style !== type;
+      // כל עבודה שנייה מבין המוצגות יורדת קצת, כדי שהעמודות יהיו מדורגות
+      li.classList.toggle('is-offset', !li.hidden && shown % 2 === 1);
       if (!li.hidden) shown++;
     });
     if (empty) empty.hidden = shown > 0;
@@ -20,6 +22,7 @@
   }
 
   if (work) {
+    setFilter('tattoo');
     work.addEventListener('click', function (e) {
       var btn = e.target.closest('button[data-filter]');
       if (btn) setFilter(btn.dataset.filter);

@@ -233,8 +233,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   list-style: none; margin: 0; padding: 0;
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; align-content: start;
 }
-.work__item:nth-child(even) { transform: translateY(40%); }
-.work__list:has(.work__item[hidden]) .work__item { transform: none; }
+.work__item.is-offset { transform: translateY(40%); }
 .work__item[hidden] { display: none; }
 .work__media { position: relative; aspect-ratio: 4 / 5; background: var(--surface-2); overflow: hidden; }
 .work__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .5s var(--ease), transform .6s var(--ease); }
@@ -317,7 +316,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   .work__portrait { width: 140px; }
   .work__list, .work__empty { grid-column: auto; grid-row: auto; }
   .work__list { gap: 24px 12px; }
-  .work__item:nth-child(even) { transform: translateY(24%); }
+  .work__item.is-offset { transform: translateY(24%); }
   .how__list li, .faq__item { grid-template-columns: 1fr; }
   .float-wa { left: 12px; bottom: 12px; width: 56px; height: 56px; }
 }
