@@ -298,7 +298,18 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 .tabs button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
 
 /* ===== About ===== */
-.about { padding: var(--gap) var(--m) 0; }
+.about {
+  position: relative; isolation: isolate;
+  min-height: min(80svh, 760px); display: flex; align-items: center;
+  padding: clamp(80px, 9vw, 140px) var(--m);
+}
+/* רקע: מגש הכלים, נמוג לכהה בצד של הטקסט */
+.about::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(to left, var(--bg) 0%, rgba(11, 11, 11, .88) 38%, rgba(11, 11, 11, .45) 75%, rgba(11, 11, 11, .6) 100%),
+    url('../img/about-bg.jpg') 25% center / cover no-repeat;
+}
 .about__text { max-width: 760px; }
 .about__text { display: flex; flex-direction: column; gap: 28px; }
 .about__text p:not(.lead) { max-width: 52ch; }
@@ -366,6 +377,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   .work__list { gap: 24px 12px; }
   .work__item.is-offset { transform: translateY(24%); }
   .how__list li, .faq__item { grid-template-columns: 1fr; }
+  .about::before { background: linear-gradient(rgba(11, 11, 11, .78), rgba(11, 11, 11, .78)), url('../img/about-bg.jpg') 30% center / cover no-repeat; }
   .float-wa { left: 12px; bottom: 12px; width: 56px; height: 56px; }
 }
 
