@@ -143,6 +143,9 @@ a { color: inherit; }
 }
 .bar__tag-gap { width: .5em; }
 .bar { justify-content: space-between; }
+/* הלוגו המאויר של סהר, צמוד לכפתור התפריט */
+.bar__end { display: flex; align-items: center; gap: clamp(10px, 1.4vw, 20px); }
+.bar__logo { display: block; height: calc(var(--bar-h) - 14px); width: auto; }
 
 /* ===== תפריט ☰ ===== */
 .menu-btn {
