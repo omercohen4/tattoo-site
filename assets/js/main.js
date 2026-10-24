@@ -4,36 +4,29 @@
   var work = document.getElementById('work');
   var items = work ? Array.prototype.slice.call(work.querySelectorAll('.work__item')) : [];
 
-  // מעבר בין הסקיצה (הסטנסיל) לקעקוע הגמור
-  function setView(view) {
-    work.classList.toggle('is-stencil', view === 'stencil');
-    work.classList.toggle('is-final', view !== 'stencil');
-    work.querySelectorAll('[data-view]').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.dataset.view === view));
-    });
-  }
-
-  // סינון לפי סגנון
-  function setFilter(style) {
+  // סינון: קעקועים או ציורים. כשאין עבודות בסוג שנבחר, מופיעה הודעה במקומן
+  var empty = work ? work.querySelector('.work__empty') : null;
+  function setFilter(type) {
+    var shown = 0;
     items.forEach(function (li) {
-      li.hidden = style !== 'all' && li.dataset.style !== style;
+      li.hidden = li.dataset.style !== type;
+      if (!li.hidden) shown++;
     });
+    if (empty) empty.hidden = shown > 0;
     work.querySelectorAll('[data-filter]').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.dataset.filter === style));
+      b.setAttribute('aria-pressed', String(b.dataset.filter === type));
     });
     if (window.ScrollTrigger) window.ScrollTrigger.refresh();
   }
 
   if (work) {
     work.addEventListener('click', function (e) {
-      var btn = e.target.closest('button');
-      if (!btn) return;
-      if (btn.dataset.view) setView(btn.dataset.view);
-      if (btn.dataset.filter) setFilter(btn.dataset.filter);
+      var btn = e.target.closest('button[data-filter]');
+      if (btn) setFilter(btn.dataset.filter);
     });
   }
 
-  // תפריט ☰: נפתח על כל המסך, נסגר בלחיצה על קישור, על הכפתור או על Esc
+  // תפריט ☰: מגירה בצד, נסגרת בלחיצה על קישור, מחוץ למגירה, על הכפתור או על Esc
   var menuBtn = document.querySelector('.menu-btn');
   var menu = document.getElementById('menu');
   function setMenu(open) {
