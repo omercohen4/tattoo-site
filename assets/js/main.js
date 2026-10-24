@@ -8,7 +8,7 @@
   var PER_PAGE = 6;
   var empty = work ? work.querySelector('.work__empty') : null;
   var pager = work ? work.querySelector('.pager') : null;
-  var pagerPages = pager ? pager.querySelector('.pager__pages') : null;
+  var pagerCount = pager ? pager.querySelector('.pager__count') : null;
   var current = { type: 'tattoo', page: 1 };
 
   function render() {
@@ -28,17 +28,8 @@
     });
     if (pager) {
       pager.hidden = pages < 2;
-      pagerPages.innerHTML = '';
-      for (var n = 1; n <= pages; n++) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'pager__num';
-        btn.dataset.page = String(n);
-        btn.textContent = String(n);
-        btn.setAttribute('aria-label', 'עמוד ' + n);
-        if (n === current.page) btn.setAttribute('aria-current', 'page');
-        pagerPages.appendChild(btn);
-      }
+      pagerCount.textContent = current.page + ' / ' + pages;
+      pagerCount.setAttribute('aria-label', 'עמוד ' + current.page + ' מתוך ' + pages);
       pager.querySelector('[data-page="prev"]').disabled = current.page === 1;
       pager.querySelector('[data-page="next"]').disabled = current.page === pages;
     }
@@ -69,10 +60,9 @@
         update(function () { current.type = tab.dataset.filter; current.page = 1; });
       }
       var step = e.target.closest('.pager button');
-      if (step && !step.disabled && step.getAttribute('aria-current') !== 'page') {
+      if (step && !step.disabled) {
         update(function () {
-          var p = step.dataset.page;
-          current.page = p === 'prev' ? current.page - 1 : p === 'next' ? current.page + 1 : Number(p);
+          current.page += step.dataset.page === 'next' ? 1 : -1;
         }, true);
       }
     });

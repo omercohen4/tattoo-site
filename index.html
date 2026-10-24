@@ -21,7 +21,7 @@
 
   <link rel="preload" href="assets/fonts/heebo-hebrew-300-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/pirata-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/style.css?v=22">
+  <link rel="stylesheet" href="assets/css/style.css?v=24">
 
   <script type="application/ld+json">
   {
@@ -322,9 +322,9 @@
         </li>
       </ol>
       <nav class="pager" aria-label="עמודי העבודות" hidden>
-        <button type="button" class="pager__step" data-page="prev">הקודם</button>
-        <div class="pager__pages"></div>
-        <button type="button" class="pager__step" data-page="next">הבא</button>
+        <button type="button" class="pager__arrow" data-page="prev" aria-label="העמוד הקודם"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        <span class="pager__count" aria-live="polite"></span>
+        <button type="button" class="pager__arrow" data-page="next" aria-label="העמוד הבא"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       </nav>
       <p class="work__empty" hidden>הציורים של סהר יעלו לכאן בקרוב.</p>
 
@@ -431,6 +431,6 @@
 
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="assets/js/main.js?v=22" defer></script>
+  <script src="assets/js/main.js?v=23" defer></script>
 </body>
 </html>
