@@ -19,11 +19,9 @@
   <meta property="og:url" content="https://omercohen4.github.io/tattoo-site/">
   <meta property="og:image" content="https://omercohen4.github.io/tattoo-site/assets/img/work/sahar-2.jpg">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/heebo-hebrew-300-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/pirata-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/style.css?v=16">
+  <link rel="stylesheet" href="assets/css/style.css?v=17">
 
   <script type="application/ld+json">
   {
@@ -136,11 +134,14 @@
 
     <section class="work" id="work" aria-labelledby="work-title">
       <div class="work__side">
-        <figure class="work__portrait">
-          <img src="assets/img/sahar-portrait.jpg" width="1048" height="1310" loading="lazy" alt="סהר מקעקע בסטודיו, רכון מעל הלקוח עם מכונת הקעקועים">
-        </figure>
-        <h2 class="work__title" id="work-title">עבודות</h2>
-        <p class="work__note">קעקועים וציורים מקוריים של סהר.</p>
+        <div class="work__head">
+          <figure class="work__portrait">
+            <img src="assets/img/sahar-portrait.jpg" width="1048" height="1310" loading="lazy" alt="סהר מקעקע בסטודיו, רכון מעל הלקוח עם מכונת הקעקועים">
+          </figure>
+          <h2 class="work__title" id="work-title">עבודות</h2>
+          <span class="work__rule" aria-hidden="true"></span>
+          <p class="work__note">קעקועים וציורים מקוריים של סהר.</p>
+        </div>
         <div class="work__controls">
           <div class="tabs" role="group" aria-label="סוג העבודה">
             <button type="button" data-filter="tattoo" aria-pressed="true">קעקועים</button>
@@ -344,6 +345,6 @@
 
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="assets/js/main.js?v=16" defer></script>
+  <script src="assets/js/main.js?v=17" defer></script>
 </body>
 </html>
