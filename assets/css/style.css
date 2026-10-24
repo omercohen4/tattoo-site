@@ -249,7 +249,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 .work__side { display: contents; }
 .work__title {
   font-family: 'Karantina', 'Heebo', sans-serif; font-weight: 700;
-  font-size: clamp(4.5rem, 2rem + 9vw, 10rem); line-height: .8; letter-spacing: 0;
+  font-size: clamp(2.5rem, 1.4rem + 3.2vw, 4.75rem); line-height: .95; letter-spacing: 0; max-width: 14ch;
 }
 .work__head {
   grid-column: 1; grid-row: 1 / span 2; align-self: start;
