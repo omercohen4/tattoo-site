@@ -33,6 +33,37 @@
     });
   }
 
+  // תפריט ☰: נפתח על כל המסך, נסגר בלחיצה על קישור, על הכפתור או על Esc
+  var menuBtn = document.querySelector('.menu-btn');
+  var menu = document.getElementById('menu');
+  function setMenu(open) {
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'סגירת התפריט' : 'פתיחת התפריט');
+    document.body.classList.toggle('menu-open', open);
+    if (open) {
+      menu.hidden = false;
+      requestAnimationFrame(function () { menu.classList.add('is-open'); });
+      menu.querySelector('a').focus();
+    } else {
+      menu.classList.remove('is-open');
+      setTimeout(function () { if (!menu.classList.contains('is-open')) menu.hidden = true; }, 300);
+    }
+  }
+  if (menuBtn && menu) {
+    menuBtn.addEventListener('click', function () {
+      setMenu(menuBtn.getAttribute('aria-expanded') !== 'true');
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {
+        setMenu(false);
+        menuBtn.focus();
+      }
+    });
+  }
+
   var year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 

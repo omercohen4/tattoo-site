@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;900&display=swap" rel="stylesheet">
   <link rel="preload" href="assets/fonts/pirata-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/style.css?v=11">
+  <link rel="stylesheet" href="assets/css/style.css?v=12">
 
   <script type="application/ld+json">
   {
@@ -54,7 +54,7 @@
   <a class="skip" href="#main">דלג לתוכן</a>
 
   <header class="bar">
-    <a class="bar__name" href="#top" aria-label="Sahar Tzaig, לראש העמוד">
+    <a class="bar__name" href="#top" aria-label="Sahar Tzaig, Tattoo Artist, לראש העמוד">
       <svg class="sig" viewBox="3 37 869 203" aria-hidden="true" focusable="false">
         <defs><clipPath id="ink-clip"><rect class="sig__clip" x="0" y="0" width="879" height="300"/></clipPath></defs>
         <g class="sig__stencil">
@@ -94,15 +94,26 @@
           <path d="M792 104.6Q792 102.6 814.1 94.3Q836.2 86 841.2 86Q846.2 86 852.2 95.1Q858.2 104.2 858.2 115.2L858.2 115.2L858.2 178.8Q858.2 186.4 851.4 200.5Q844.6 214.6 837 225.3Q829.4 236 826.6 236L826.6 236Q821.6 236 813.2 233Q804.8 230 798.8 227L798.8 227L793 224L793 218L799.8 218Q807.6 218 817.6 209.1Q827.6 200.2 834.2 185.4L834.2 185.4Q811.6 196 808.2 196L808.2 196Q802 196 797 188.1Q792 180.2 792 170.4L792 170.4L792 104.6ZM834.2 177L834.2 122Q834.2 104.4 825 104.4L825 104.4Q820.2 104.4 816.2 107.6L816.2 107.6L816.2 153.6Q816.2 167.6 820.6 172.3Q825 177 834.2 177L834.2 177Z"/>
         </g>
       </svg>
+      <span class="bar__tag" aria-hidden="true">Tattoo Artist</span>
     </a>
-    <nav class="bar__nav" aria-label="ניווט ראשי">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="פתיחת התפריט">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="menu" id="menu" hidden>
+    <nav class="menu__nav" aria-label="ניווט ראשי">
       <a href="#work">עבודות</a>
       <a href="#about">עליי</a>
       <a href="#how">איך זה עובד</a>
       <a href="#faq">שאלות</a>
+      <a href="#contact">צור קשר</a>
     </nav>
-    <a class="btn btn--small" href="https://wa.me/972500000000?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener">וואטסאפ</a>
-  </header>
+    <div class="menu__foot">
+      <a class="btn" href="https://wa.me/972500000000?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z"/></svg>לקביעת תור בוואטסאפ</a>
+      <p>אבא הלל 7, רמת גן</p>
+    </div>
+  </div>
 
   <main id="main">
     <section class="hero" id="top">
@@ -301,6 +312,6 @@
 
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="assets/js/main.js?v=11" defer></script>
+  <script src="assets/js/main.js?v=12" defer></script>
 </body>
 </html>

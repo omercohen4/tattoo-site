@@ -15,10 +15,10 @@
   --muted: #aeaba5;
   --accent: #ffffff;       /* שחור-לבן: הכפתורים לבנים */
   --accent-hover: #e4e2dd;
-  --bar-bg: #ffffff;       /* רקע הפס העליון */
-  --stencil: #9a9792;      /* קווי הסקיצה לפני הדיו */
+  --bar-bg: #d9d8d6;       /* רקע הפס העליון: אפור בהיר */
+  --stencil: #7a1fb4;      /* קווי הסטנסיל הסגולים בחתימה, לפני הדיו */
   --tattoo-ink: #0b0b0b;
-  --bar-h: clamp(64px, 6.4vw, 92px);
+  --bar-h: clamp(72px, 7vw, 100px);
   --accent-ink: #0b0b0b;
   --radius: 6px;
 
@@ -78,8 +78,6 @@ a { color: inherit; }
 .btn:hover { background: var(--accent-hover); }
 .btn:active { transform: scale(.97); }
 .btn--small { min-height: 44px; padding: 0 22px; font-size: var(--step-small); }
-.bar .btn { background: var(--tattoo-ink); color: #ffffff; }
-.bar .btn:hover { background: #2c2a27; }
 .btn svg { flex: none; }
 
 .link {
@@ -95,10 +93,47 @@ a { color: inherit; }
   height: var(--bar-h); padding: 0 var(--m);
   background: var(--bar-bg); color: var(--tattoo-ink);
 }
-.bar__name { display: block; height: clamp(40px, 4.4vw, 60px); flex: none; }
-.bar__nav { display: flex; gap: 4px 28px; margin-inline-start: auto; }
-.bar__nav a { text-decoration: none; padding: 10px 0; transition: color .2s var(--ease); }
-.bar__nav a:hover { color: var(--stencil); }
+.bar__name {
+  display: inline-flex; flex-direction: column; align-items: stretch; gap: 4px;
+  text-decoration: none; color: var(--tattoo-ink); flex: none;
+}
+.bar__name .sig { height: clamp(36px, 3.8vw, 54px); }
+.bar__tag {
+  font-size: clamp(.6875rem, .6rem + .25vw, .875rem); font-weight: 500; line-height: 1;
+  text-transform: uppercase; text-align: justify; text-align-last: justify; letter-spacing: .35em;
+  direction: ltr;
+}
+.bar { justify-content: space-between; }
+
+/* ===== תפריט ☰ ===== */
+.menu-btn {
+  width: 48px; height: 48px; padding: 0; border: 0; background: transparent; cursor: pointer;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 7px;
+}
+.menu-btn span { display: block; width: 30px; height: 2px; background: var(--tattoo-ink); transition: transform .3s var(--ease), opacity .2s var(--ease); }
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+.menu {
+  position: fixed; inset: var(--bar-h) 0 0 0; z-index: 39;
+  background: var(--bg); padding: clamp(24px, 5vw, 64px) var(--m);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 40px;
+  overflow-y: auto; opacity: 0; transform: translateY(-12px);
+  transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.menu[hidden] { display: none; }
+.menu.is-open { opacity: 1; transform: none; }
+.menu__nav { display: flex; flex-direction: column; }
+.menu__nav a {
+  font-weight: 900; font-size: var(--step-head); line-height: 1.1; letter-spacing: -0.03em;
+  text-decoration: none; padding: 14px 0; border-bottom: 1px solid #2c2a27;
+  transition: color .2s var(--ease), padding .3s var(--ease);
+}
+.menu__nav a:hover { color: var(--muted); padding-inline-start: 12px; }
+.menu__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; color: var(--muted); }
+body.menu-open { overflow: hidden; }
+body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 [id] { scroll-margin-top: var(--bar-h); }
 
 .sr-only {
@@ -245,9 +280,7 @@ a { color: inherit; }
 
 /* ===== Phone ===== */
 @media (max-width: 760px) {
-  .bar { justify-content: space-between; }
-  .bar__nav { display: none; }
-  .bar__name { height: 38px; }
+  .bar__name .sig { height: 34px; }
   .sig__stencil { stroke-width: 6; }
   .sig__line { stroke-width: 7; }
   .work, .about, .contact { grid-template-columns: 1fr; }
