@@ -242,8 +242,8 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 
 /* ===== Work: עמודה נעוצה עם הכותרת, העבודות עוברות לצידה ===== */
 .work {
-  margin-top: var(--gap); background: var(--surface);
-  padding: clamp(80px, 9vw, 140px) var(--m);
+  background: var(--surface);   /* צמוד לפתיח, בלי פס כהה ביניהם */
+  padding: clamp(40px, 4vw, 64px) var(--m) clamp(80px, 9vw, 140px);
   display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px clamp(32px, 5vw, 80px);
 }
 .work__side { display: contents; }
