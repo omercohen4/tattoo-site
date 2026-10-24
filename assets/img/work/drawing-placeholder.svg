@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500">
-<rect width="1200" height="1500" fill="#e9e7e3"/>
-<path d="M600 330 C 430 330, 360 470, 380 620 C 400 760, 470 860, 600 880 C 730 860, 800 760, 820 620 C 840 470, 770 330, 600 330 Z" fill="none" stroke="#8d8a85" stroke-width="5"/>
-<path d="M470 600 q 40 -25 80 0 M650 600 q 40 -25 80 0 M600 640 l -18 90 l 30 6 M540 790 q 60 30 120 0" fill="none" stroke="#8d8a85" stroke-width="5" stroke-linecap="round"/>
-<path d="M600 880 C 600 980, 520 1040, 380 1120 M600 880 C 600 980, 680 1040, 820 1120" fill="none" stroke="#a9a6a1" stroke-width="4" stroke-dasharray="14 10"/>
-<text x="1160" y="1460" text-anchor="end" font-family="sans-serif" font-size="34" fill="#000" fill-opacity=".35">ציור זמני</text>
-</svg>
