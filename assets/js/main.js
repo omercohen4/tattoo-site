@@ -54,7 +54,8 @@
       setMenu(menuBtn.getAttribute('aria-expanded') !== 'true');
     });
     menu.addEventListener('click', function (e) {
-      if (e.target.closest('a')) setMenu(false);
+      // לחיצה על קישור, או על האזור הכהה שמחוץ למגירה, סוגרת את התפריט
+      if (e.target.closest('a') || e.target === menu) setMenu(false);
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {
