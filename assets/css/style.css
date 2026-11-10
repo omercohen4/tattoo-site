@@ -366,6 +366,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 /* ===== About ===== */
 .about {
   position: relative; isolation: isolate;
+  background: linear-gradient(to bottom, var(--surface), var(--bg) 180px);   /* ממשיך את הצבע של הגלריה, בלי קו חד */
   min-height: min(80svh, 760px); display: flex; align-items: center;
   padding: clamp(80px, 9vw, 140px) var(--m);
 }
@@ -375,6 +376,8 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   background:
     linear-gradient(to left, var(--bg) 0%, rgba(11, 11, 11, .88) 38%, rgba(11, 11, 11, .45) 75%, rgba(11, 11, 11, .6) 100%),
     url('../img/about-bg.jpg') 25% center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 180px);
+  mask-image: linear-gradient(to bottom, transparent, #000 180px);
 }
 .about__text { max-width: 760px; }
 .about__text { display: flex; flex-direction: column; gap: 28px; }
@@ -383,6 +386,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 /* ===== How ===== */
 .how {
   position: relative; isolation: isolate;
+  background: linear-gradient(to bottom, var(--bg) calc(100% - 160px), var(--surface));   /* נמוג לצבע של השאלות הנפוצות */
   padding: clamp(80px, 9vw, 140px) var(--m) clamp(48px, 5vw, 72px);
   display: flex; flex-direction: column; gap: clamp(48px, 5vw, 80px);
 }
@@ -391,7 +395,9 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   content: ""; position: absolute; inset: 0; z-index: -1;
   background:
     linear-gradient(to left, var(--bg) 0%, rgba(11, 11, 11, .9) 42%, rgba(11, 11, 11, .4) 78%, rgba(11, 11, 11, .55) 100%),
-    url('../img/how-bg.jpg') left 30% / auto 100% no-repeat, var(--bg);
+    url('../img/how-bg.jpg') left 30% / auto 100% no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 160px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 160px), transparent);
 }
 .how > * { max-width: 640px; }
 .how__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 44px; }
@@ -483,6 +489,15 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   .work, .about, .contact { grid-template-columns: 1fr; }
   .reviews__list { grid-auto-columns: 84vw; }
   .work__head { grid-column: auto; grid-row: auto; position: relative; top: auto; }
+  .work__head::before {
+    inset-inline: calc(var(--m) * -1); top: calc(clamp(40px, 4vw, 64px) * -1); bottom: -48px;
+    border-radius: 0;
+    background:
+      linear-gradient(to left, rgba(20, 19, 18, .55), rgba(20, 19, 18, .25)),
+      url('../img/work-bg.jpg') 30% center / cover no-repeat;
+    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
   .work__controls { grid-column: auto; grid-row: auto; }
   .work__portrait { width: 140px; }
   .work__list, .work__empty, .pager { grid-column: auto; grid-row: auto; }
@@ -498,7 +513,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
   .how::before {
     background:
       linear-gradient(to bottom, rgba(11, 11, 11, .55) 0%, rgba(11, 11, 11, .7) min(70vw, 300px), var(--bg) min(105vw, 470px)),
-      url('../img/how-bg.jpg') center top / 100% auto no-repeat, var(--bg);
+      url('../img/how-bg.jpg') center top / 100% auto no-repeat;
   }
   .about::before { background: linear-gradient(rgba(11, 11, 11, .78), rgba(11, 11, 11, .78)), url('../img/about-bg.jpg') 30% center / cover no-repeat; }
   .float-wa { left: 12px; bottom: 12px; width: 56px; height: 56px; }
