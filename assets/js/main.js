@@ -52,18 +52,71 @@
     window.scrollTo({ top: Math.max(0, y), behavior: 'instant' });
   }
 
+  // מעבר חלק: העבודות של העמוד הנוכחי נעלמות לצד אחד, הדף גולל בעדינות לתחילת הרשימה,
+  // והעבודות החדשות נכנסות מהצד השני אחת אחרי השנייה
+  var busy = false;
+  var entranceCleared = false;
+  function visibleMedia() {
+    return items.filter(function (li) { return !li.hidden; }).map(function (li) { return li.querySelector('.work__media'); });
+  }
+  function transition(change, toListStart, dir) {
+    var gsap = window.gsap;
+    if (!gsap || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      update(change, toListStart);
+      return;
+    }
+    if (busy) return;
+    busy = true;
+    // אנימציות הכניסה בגלילה מתנגשות עם המעבר, אז מבטלים אותן בפעם הראשונה
+    if (!entranceCleared) {
+      entranceCleared = true;
+      (window.workEntrances || []).forEach(function (t) { t.scrollTrigger && t.scrollTrigger.kill(); t.kill(); });
+      gsap.set(items.map(function (li) { return li.querySelector('.work__media'); }), { clearProps: 'opacity,transform' });
+    }
+    var shift = 48 * dir; // בעברית "הבא" נמצא משמאל: הישנות יוצאות ימינה, החדשות נכנסות משמאל
+    var outgoing = visibleMedia();
+    var wasInsideList = toListStart || list.getBoundingClientRect().top < controls.getBoundingClientRect().top;
+    var target = null;
+    if (wasInsideList) {
+      target = Math.max(0, window.scrollY + list.getBoundingClientRect().top - controls.getBoundingClientRect().bottom - 16);
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    }
+    // מחכים שהגלילה תסתיים לפני שמחליפים את העבודות, כדי שהדף לא יקפוץ באמצע
+    function afterScroll(cb) {
+      var start = Date.now();
+      (function check() {
+        if (target === null || Math.abs(window.scrollY - target) < 2 || Date.now() - start > 1200) cb();
+        else requestAnimationFrame(check);
+      })();
+    }
+    if (!outgoing.length) { afterScroll(swap); return; }
+    gsap.to(outgoing, {
+      opacity: 0, x: shift, y: dir ? 0 : -24, duration: 0.35, ease: 'power2.in', stagger: 0.03,
+      onComplete: function () { afterScroll(swap); }
+    });
+    function swap() {
+      update(change, wasInsideList);
+      gsap.set(outgoing, { clearProps: 'opacity,transform' });
+      var incoming = visibleMedia();
+      if (!incoming.length) { busy = false; return; }
+      gsap.fromTo(incoming,
+        { opacity: 0, x: -shift, y: dir ? 0 : 32 },
+        { opacity: 1, x: 0, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.07, clearProps: 'opacity,transform',
+          onComplete: function () { busy = false; } });
+    }
+  }
+
   if (work) {
     render();
     work.addEventListener('click', function (e) {
       var tab = e.target.closest('button[data-filter]');
       if (tab && tab.getAttribute('aria-pressed') !== 'true') {
-        update(function () { current.type = tab.dataset.filter; current.page = 1; });
+        transition(function () { current.type = tab.dataset.filter; current.page = 1; }, false, 0);
       }
       var step = e.target.closest('.pager button');
       if (step && !step.disabled) {
-        update(function () {
-          current.page += step.dataset.page === 'next' ? 1 : -1;
-        }, true);
+        var forward = step.dataset.page === 'next';
+        transition(function () { current.page += forward ? 1 : -1; }, true, forward ? 1 : -1);
       }
     });
   }
@@ -340,10 +393,11 @@
   // העבודות עולות מתחת לכותרת הנעוצה
   items.forEach(function (li) {
     if (introItems.indexOf(li) !== -1) return; // אלה כבר נכנסים בפתיחה
-    gsap.from(li.querySelector('.work__media'), {
+    window.workEntrances = window.workEntrances || [];
+    window.workEntrances.push(gsap.from(li.querySelector('.work__media'), {
       y: 80, opacity: 0, scale: 0.94, duration: 1, ease: 'power3.out',
       scrollTrigger: { trigger: li, start: 'top 88%', once: true }
-    });
+    }));
   });
 
   // כניסה מדורגת לכל קבוצת תוכן
