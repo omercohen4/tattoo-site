@@ -1,7 +1,5 @@
 # הקעקועים בגלריה. הראשון ברשימה מופיע ראשון באתר
 items:
-- image: assets/img/work/test-upload.jpg
-  alt: בדיקה
 - image: assets/img/work/sahar-1.jpg
   alt: קעקוע פיין-ליין של אדמונית עם עלים על השוק
 - image: assets/img/work/sahar-2.jpg
