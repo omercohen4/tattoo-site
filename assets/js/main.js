@@ -267,6 +267,70 @@
     });
   }
 
+  // פתיחת העמוד: הרקע נמוג פנימה, התמונה של סהר נחשפת מלמטה,
+  // שורות הכותרת עולות אחת אחרי השנייה, ואחריהן שאר החלק הראשון
+  function splitLines(el) {
+    var original = el.innerHTML;
+    var sr = el.querySelector('.sr-only');
+    var words = Array.prototype.filter.call(el.childNodes, function (n) { return n.nodeType === 3; })
+      .map(function (n) { return n.textContent; }).join(' ').trim().split(/\s+/);
+    var prefix = sr ? sr.outerHTML : '';
+    el.innerHTML = prefix + words.map(function (w) { return '<span class="w">' + w + '</span>'; }).join(' ');
+    var lines = [];
+    var lastTop = null;
+    el.querySelectorAll('.w').forEach(function (w) {
+      var top = w.offsetTop;
+      if (lastTop === null || Math.abs(top - lastTop) > 4) { lines.push([]); lastTop = top; }
+      lines[lines.length - 1].push(w.textContent);
+    });
+    el.innerHTML = prefix + lines.map(function (l) {
+      return '<span class="line"><span class="line__in">' + l.join(' ') + '</span></span>';
+    }).join('');
+    return {
+      inner: el.querySelectorAll('.line__in'),
+      restore: function () { el.innerHTML = original; } // חוזרים לטקסט רגיל, כדי שהשורות יתחלקו נכון גם אחרי שינוי גודל
+    };
+  }
+
+  var introItems = items.filter(function (li) {
+    return !li.hidden && li.getBoundingClientRect().top < window.innerHeight;
+  });
+
+  function playIntro() {
+    var title = document.querySelector('.work__title');
+    var split = title ? splitLines(title) : null;
+    var portrait = document.querySelector('.work__portrait');
+    var media = introItems.map(function (li) { return li.querySelector('.work__media'); });
+
+    gsap.set('.bar', { opacity: 0 });
+    if (portrait) {
+      gsap.set(portrait, { clipPath: 'inset(100% 0% 0% 0%)' });
+      gsap.set(portrait.querySelector('img'), { scale: 1.25 });
+    }
+    if (split) gsap.set(split.inner, { yPercent: 115 });
+    gsap.set('.work__note, .work__controls', { y: 24, opacity: 0 });
+    gsap.set(media, { y: 70, opacity: 0 });
+    document.documentElement.classList.remove('intro');
+
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.to('.bar', { opacity: 1, duration: 0.8 }, 0);
+    if (portrait) {
+      tl.to(portrait, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'power4.inOut' }, 0.1)
+        .to(portrait.querySelector('img'), { scale: 1, duration: 1.6 }, 0.1);
+    }
+    if (split) {
+      tl.to(split.inner, { yPercent: 0, duration: 1, ease: 'power4.out', stagger: 0.12 }, 0.45)
+        .add(split.restore);
+    }
+    tl.to('.work__note', { y: 0, opacity: 1, duration: 0.8 }, 0.95)
+      .to('.work__controls', { y: 0, opacity: 1, duration: 0.8 }, 1.05)
+      .to(media, { y: 0, opacity: 1, duration: 1, stagger: 0.1, clearProps: 'transform' }, 1.1);
+  }
+
+  // מחכים לפונט של הכותרת, כדי שהחלוקה לשורות תהיה נכונה
+  var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+  Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 1200); })]).then(playIntro);
+
   // הפתיח מוסתר כרגע (בהערה ב-index.html); האנימציות שלו רצות רק אם הוא חוזר
   if (document.querySelector('.hero')) {
     gsap.from('.hero__title, .hero .lead, .hero .actions', { y: 28, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12 });
@@ -275,6 +339,7 @@
 
   // העבודות עולות מתחת לכותרת הנעוצה
   items.forEach(function (li) {
+    if (introItems.indexOf(li) !== -1) return; // אלה כבר נכנסים בפתיחה
     gsap.from(li.querySelector('.work__media'), {
       y: 80, opacity: 0, scale: 0.94, duration: 1, ease: 'power3.out',
       scrollTrigger: { trigger: li, start: 'top 88%', once: true }
