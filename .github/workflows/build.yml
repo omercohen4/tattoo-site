@@ -1,0 +1,54 @@
+# בונה את האתר מחדש בכל פעם שמשנים תוכן (למשל מפאנל הניהול):
+# מכין תמונות חדשות, בונה את index.html ושומר את התוצאה בריפו.
+# GitHub Pages מפרסם את השינוי אוטומטית אחרי השמירה.
+name: Build site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'templates/**'
+      - 'tools/**'
+      - 'assets/img/work/**'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install tools
+        run: pip install pyyaml==6.0.2 jinja2==3.1.6 pillow==11.3.0
+
+      - name: Build
+        run: python3 tools/build.py
+
+      - name: Save the result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A index.html content assets/img/work
+          if git diff --cached --quiet; then
+            echo "Nothing changed"
+            exit 0
+          fi
+          git commit -m "Build site from content"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1

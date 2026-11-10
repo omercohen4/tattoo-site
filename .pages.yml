@@ -1,0 +1,230 @@
+# הגדרות פאנל הניהול (Pages CMS): אילו חלקים באתר סהר יכול לערוך, ואיך נקראים השדות.
+# אחרי כל שמירה בפאנל, הבנייה האוטומטית (.github/workflows/build.yml) מעדכנת את האתר.
+
+media:
+  input: assets/img/work
+  output: assets/img/work
+  categories: [image]
+  rename: safe
+
+content:
+  - name: tattoos
+    label: קעקועים
+    description: התמונות בטאב "קעקועים". הראשונה ברשימה מופיעה ראשונה באתר. אפשר לגרור כדי לשנות סדר.
+    type: file
+    path: content/tattoos.yml
+    format: yaml
+    fields:
+      - name: items
+        label: קעקועים
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "קעקוע {index}"
+        fields:
+          - name: image
+            label: תמונה
+            type: image
+            required: true
+            description: האתר חותך את התמונה אוטומטית לגודל של הגלריה, מהמרכז.
+          - name: alt
+            label: תיאור קצר (לא חובה)
+            type: string
+            description: לא מופיע באתר. עוזר לגוגל ולעיוורים להבין מה רואים בתמונה.
+
+  - name: drawings
+    label: ציורים
+    description: התמונות בטאב "ציורים". הראשונה ברשימה מופיעה ראשונה באתר. אפשר לגרור כדי לשנות סדר.
+    type: file
+    path: content/drawings.yml
+    format: yaml
+    fields:
+      - name: items
+        label: ציורים
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "ציור {index}"
+        fields:
+          - name: image
+            label: תמונה
+            type: image
+            required: true
+            description: האתר חותך את התמונה אוטומטית לגודל של הגלריה, מהמרכז.
+          - name: alt
+            label: תיאור קצר (לא חובה)
+            type: string
+            description: לא מופיע באתר. עוזר לגוגל ולעיוורים להבין מה רואים בתמונה.
+
+  - name: gallery
+    label: כותרת הגלריה
+    description: הטקסט ליד התמונה של סהר, בראש העמוד.
+    type: file
+    path: content/gallery.yml
+    format: yaml
+    fields:
+      - name: title
+        label: כותרת
+        type: text
+        required: true
+      - name: note
+        label: טקסט קטן מתחת לכותרת
+        type: text
+        description: כל שורה חדשה תופיע באתר בשורה נפרדת.
+
+  - name: about
+    label: היי, אני סהר
+    type: file
+    path: content/about.yml
+    format: yaml
+    fields:
+      - name: title
+        label: כותרת
+        type: string
+        required: true
+      - name: lead
+        label: משפט פתיחה (באותיות גדולות יותר)
+        type: text
+      - name: paragraphs
+        label: פסקאות
+        type: text
+        list: true
+
+  - name: how
+    label: איך זה עובד
+    type: file
+    path: content/how.yml
+    format: yaml
+    fields:
+      - name: title
+        label: כותרת
+        type: string
+        required: true
+      - name: steps
+        label: שלבים
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: שם השלב
+            type: string
+            required: true
+          - name: text
+            label: הסבר
+            type: text
+
+  - name: faq
+    label: שאלות נפוצות
+    type: file
+    path: content/faq.yml
+    format: yaml
+    fields:
+      - name: title
+        label: כותרת
+        type: string
+        required: true
+      - name: questions
+        label: שאלות
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{question}"
+        fields:
+          - name: question
+            label: שאלה
+            type: string
+            required: true
+          - name: answer
+            label: תשובה
+            type: text
+            required: true
+
+  - name: reviews
+    label: ביקורות
+    type: file
+    path: content/reviews.yml
+    format: yaml
+    fields:
+      - name: title
+        label: כותרת
+        type: string
+        required: true
+      - name: items
+        label: ביקורות
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: name
+            label: שם הלקוח
+            type: string
+            required: true
+          - name: work
+            label: מה קועקע (לא חובה)
+            type: string
+            description: "למשל: שושן · ירך"
+          - name: text
+            label: מה הלקוח כתב
+            type: text
+            required: true
+
+  - name: contact
+    label: פרטי קשר
+    description: מופיעים בכמה מקומות באתר, בכפתורי הוואטסאפ ובמידע שגוגל מציג.
+    type: file
+    path: content/contact.yml
+    format: yaml
+    fields:
+      - name: title
+        label: כותרת החלק האחרון
+        type: string
+        required: true
+      - name: phone
+        label: טלפון (גם לוואטסאפ)
+        type: string
+        required: true
+        description: "למשל: 052-661-3189"
+        pattern:
+          regex: "^0[0-9-]{8,12}$"
+          message: מספר טלפון ישראלי שמתחיל ב-0
+      - name: instagram
+        label: שם משתמש באינסטגרם
+        type: string
+        description: בלי @
+      - name: studio
+        label: שם הסטודיו
+        type: string
+      - name: street
+        label: רחוב ומספר
+        type: string
+      - name: city
+        label: עיר
+        type: string
+      - name: weekdays_open
+        label: א׳–ה׳ פתיחה
+        type: string
+        description: "למשל: 08:00"
+        pattern:
+          regex: "^[0-2]?[0-9]:[0-5][0-9]$"
+          message: "שעה בפורמט 08:00"
+      - name: weekdays_close
+        label: א׳–ה׳ סגירה
+        type: string
+        pattern:
+          regex: "^[0-2]?[0-9]:[0-5][0-9]$"
+          message: "שעה בפורמט 23:00"
+      - name: friday_open
+        label: יום ו׳ פתיחה
+        type: string
+        description: להשאיר ריק אם סגור ביום שישי
+      - name: friday_close
+        label: יום ו׳ סגירה
+        type: string
