@@ -339,7 +339,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 /* הלשוניות נצמדות מעל העבודות, כך שתמיד אפשר להחליף בין קעקועים לציורים */
 .work__controls {
   grid-column: 2; grid-row: 1; position: sticky; top: var(--bar-h); z-index: 3;
-  background: var(--surface); padding: 12px 0 0; border-bottom: 1px solid #2c2a27;
+  background: var(--surface); padding: 12px 0 0;
 }
 
 .work__list {
@@ -356,12 +356,12 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 
 .tabs { display: flex; gap: 32px; }
 .tabs button {
-  min-height: 48px; padding: 0 0 6px; margin-bottom: -1px; border: 0; border-bottom: 2px solid transparent; cursor: pointer;
+  min-height: 48px; padding: 0 0 6px; border: 0; cursor: pointer;
   background: transparent; color: var(--muted); font: inherit; font-size: var(--step-lead);
-  transition: color .2s var(--ease), border-color .2s var(--ease);
+  transition: color .2s var(--ease);
 }
 .tabs button:hover { color: var(--ink); }
-.tabs button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.tabs button[aria-pressed="true"] { color: var(--ink); }
 
 /* ===== About ===== */
 .about {
@@ -467,20 +467,20 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 
 /* ===== Footer ===== */
 .footer { background: var(--surface); padding: 28px var(--m); border-top: 1px solid #2c2a28; }
-@media (max-width: 760px) { .footer { padding-bottom: 88px; } }
+@media (max-width: 760px) { .footer { padding-bottom: 108px; } }
 .footer__small { font-size: var(--step-small); color: var(--muted); }
 /* הכניסה הנסתרת לפאנל הניהול: בלי תפריט העתקה של הטלפון בלחיצה ארוכה */
 .footer__admin { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 
 /* ===== WhatsApp צף ===== */
 .float-wa {
-  position: fixed; left: 20px; bottom: 20px; z-index: 50;
+  position: fixed; left: 20px; bottom: 40px; z-index: 50;
   width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; background: #141414; color: #ffffff; border: 1px solid #3a3836;
+  border-radius: 50%; background: #25d366; color: #ffffff;   /* הצבעים של וואטסאפ */
   box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
   transition: background-color .2s var(--ease), transform .2s var(--ease);
 }
-.float-wa:hover { background: #262422; }
+.float-wa:hover { background: #1ebe5b; }
 .float-wa:active { transform: scale(.94); }
 
 /* ===== Phone ===== */
@@ -518,7 +518,7 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
       url('../img/how-bg.jpg') center top / 100% auto no-repeat;
   }
   .about::before { background: linear-gradient(rgba(11, 11, 11, .78), rgba(11, 11, 11, .78)), url('../img/about-bg.jpg') 30% center / cover no-repeat; }
-  .float-wa { left: 12px; bottom: 12px; width: 56px; height: 56px; }
+  .float-wa { left: 14px; bottom: 32px; width: 56px; height: 56px; }
   .hand-layer { bottom: auto; height: var(--bar-h); }
 }
 
