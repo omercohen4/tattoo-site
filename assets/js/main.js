@@ -165,6 +165,19 @@
     });
   }
 
+  // כניסה נסתרת לפאנל הניהול: לחיצה ארוכה (שנייה) על "Sahar Tzaig" בשורה התחתונה
+  var adminLink = document.querySelector('.footer__admin');
+  if (adminLink) {
+    var holdTimer;
+    var startHold = function () {
+      holdTimer = setTimeout(function () { window.location.href = 'https://app.pagescms.org/'; }, 1000);
+    };
+    var stopHold = function () { clearTimeout(holdTimer); };
+    adminLink.addEventListener('pointerdown', startHold);
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (ev) { adminLink.addEventListener(ev, stopHold); });
+    adminLink.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  }
+
   // ביקורות: החצים מגלגלים כרטיס אחד בכל לחיצה, ונכבים בקצוות
   var reviewList = document.querySelector('.reviews__list');
   if (reviewList) {

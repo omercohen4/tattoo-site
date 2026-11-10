@@ -469,6 +469,8 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 .footer { background: var(--surface); padding: 28px var(--m); border-top: 1px solid #2c2a28; }
 @media (max-width: 760px) { .footer { padding-bottom: 88px; } }
 .footer__small { font-size: var(--step-small); color: var(--muted); }
+/* הכניסה הנסתרת לפאנל הניהול: בלי תפריט העתקה של הטלפון בלחיצה ארוכה */
+.footer__admin { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 
 /* ===== WhatsApp צף ===== */
 .float-wa {
