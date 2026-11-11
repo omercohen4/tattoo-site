@@ -11,15 +11,7 @@
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="assets/img/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-  <script>
-    document.documentElement.classList.add('js');
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('motion', 'intro');
-      // רשת ביטחון: אם הסקריפט לא רץ, התוכן מופיע בכל זאת
-      setTimeout(function () { document.documentElement.classList.remove('intro'); }, 3000);
-    }
-  </script>
-
+{% set intro = true %}{% include '_head_script.html' %}
   <meta property="og:type" content="website">
   <meta property="og:locale" content="he_IL">
   <meta property="og:title" content="Sahar Tzaig | מקעקע ברמת גן">
@@ -33,7 +25,7 @@
 
   <link rel="preload" href="assets/fonts/heebo-hebrew-300-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/pirata-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/style.css?v=40">
+  <link rel="stylesheet" href="assets/css/style.css?v={{ css_version }}">
 
   <script type="application/ld+json">
   {
@@ -112,7 +104,7 @@
       <span class="bar__tag" aria-hidden="true"><span>T</span><span>A</span><span>T</span><span>T</span><span>O</span><span>O</span><span class="bar__tag-gap"></span><span>A</span><span>R</span><span>T</span><span>I</span><span>S</span><span>T</span></span>
     </a>
     <div class="bar__end">
-      <button class="bar__logo-btn" type="button" aria-haspopup="dialog" aria-controls="card" aria-label="כרטיס הביקור של סהר">
+      <button class="bar__logo-btn" type="button" aria-haspopup="dialog" aria-label="כרטיס הביקור של סהר">
         <img class="bar__logo" src="assets/img/logo-ink-small.webp?v=2" width="200" height="228" alt="">
       </button>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="פתיחת התפריט">
@@ -132,7 +124,7 @@
       <a href="#contact">צור קשר</a>
     </nav>
     <div class="menu__foot">
-      <a class="btn" href="https://wa.me/{{ wa_number }}?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z"/></svg>לקביעת תור בוואטסאפ</a>
+      <a class="btn" href="https://wa.me/{{ wa_number }}?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z"/></svg>לקביעת תור בוואטסאפ <span class="sr-only">(נפתח בחלון חדש)</span></a>
       <p>סטודיו {{ contact.studio }}<br>{{ contact.street }}, {{ contact.city }}</p>
       </div>
   </div>
@@ -150,7 +142,7 @@
         <span class="hero__rule" aria-hidden="true"></span>
         <p class="lead">קעקועים בעיצוב אישי, מהסקיצה הראשונה ועד הקו האחרון. סטודיו פרטי ברמת גן</p>
         <div class="actions is-stacked">
-          <a class="btn" href="https://wa.me/{{ wa_number }}?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z"/></svg>לקביעת תור בוואטסאפ</a>
+          <a class="btn" href="https://wa.me/{{ wa_number }}?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z"/></svg>לקביעת תור בוואטסאפ <span class="sr-only">(נפתח בחלון חדש)</span></a>
           <a class="link" href="#work">לעבודות</a>
         </div>
       </div>
@@ -188,7 +180,7 @@
       </ol>
       <nav class="pager" aria-label="עמודי העבודות" hidden>
         <button type="button" class="pager__arrow" data-page="prev" aria-label="העמוד הקודם"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-        <span class="pager__count" aria-live="polite"></span>
+        <span class="pager__count" aria-live="polite"><span aria-hidden="true" class="pager__num"></span><span class="sr-only pager__sr"></span></span>
         <button type="button" class="pager__arrow" data-page="next" aria-label="העמוד הבא"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       </nav>
       <p class="work__empty" hidden>הציורים של סהר יעלו לכאן בקרוב.</p>
@@ -245,23 +237,25 @@
     <section class="contact" id="contact" aria-labelledby="contact-title">
       <div class="contact__main">
         <h2 class="h2" id="contact-title">{{ contact.title }}</h2>
-        <a class="contact__phone" dir="ltr" href="https://wa.me/{{ wa_number }}?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener">{{ contact.phone }}</a>
+        <a class="contact__phone" dir="ltr" href="https://wa.me/{{ wa_number }}?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener"><span class="sr-only">וואטסאפ: </span>{{ contact.phone }} <span class="sr-only">(נפתח בחלון חדש)</span></a>
       </div>
       <ul class="contact__details">
-        <li><a href="https://www.google.com/maps/search/?api=1&amp;query={{ maps_query }}" target="_blank" rel="noopener">סטודיו {{ contact.studio }}, {{ contact.street }}, {{ contact.city }}</a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&amp;query={{ maps_query }}" target="_blank" rel="noopener">סטודיו {{ contact.studio }}, {{ contact.street }}, {{ contact.city }} <span class="sr-only">(נפתח בחלון חדש)</span></a></li>
         <li>א׳–ה׳ <span dir="ltr">{{ contact.weekdays_open }}–{{ contact.weekdays_close }}</span>{% if contact.friday_open %}<br>ו׳ <span dir="ltr">{{ contact.friday_open }}–{{ contact.friday_close }}</span>{% endif %}</li>
-        <li><a href="https://www.instagram.com/{{ contact.instagram }}/" target="_blank" rel="noopener" dir="ltr">@{{ contact.instagram }}</a></li>
+        <li><a href="https://www.instagram.com/{{ contact.instagram }}/" target="_blank" rel="noopener" dir="ltr">@{{ contact.instagram }} <span class="sr-only">(נפתח בחלון חדש)</span></a></li>
       </ul>
     </section>
   </main>
 
   <footer class="footer">
-    <p class="footer__small">© <span data-year>2026</span> <span class="footer__admin">Sahar Tzaig</span> · רמת גן</p>
+    <p class="footer__small">© <span data-year>2026</span> <span class="footer__admin" lang="en">Sahar Tzaig</span> · רמת גן · <a class="footer__link" href="accessibility.html">הצהרת נגישות</a></p>
   </footer>
 
-  <a class="float-wa" href="https://wa.me/{{ wa_number }}?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ">
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-  </a>
+  <aside class="quick" aria-label="קיצורים">
+    <a class="float-wa" href="https://wa.me/{{ wa_number }}?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener" aria-label="שליחת הודעה בוואטסאפ (נפתח בחלון חדש)">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    </a>
+{% include '_a11y.html' %}  </aside>
 
 
   <!-- כרטיס הביקור: נפתח בלחיצה על הלוגו בפס העליון -->
@@ -271,13 +265,13 @@
     </button>
     <div class="card__body">
       <div class="card__text">
-        <p class="card__name" id="card-name" dir="ltr">Sahar Tzaig</p>
+        <p class="card__name" id="card-name" dir="ltr" lang="en">Sahar Tzaig</p>
         <p class="card__tag" aria-label="Tattoo Artist"><span>T</span><span>A</span><span>T</span><span>T</span><span>O</span><span>O</span><span class="card__tag-gap"></span><span>A</span><span>R</span><span>T</span><span>I</span><span>S</span><span>T</span></p>
         <span class="card__rule" aria-hidden="true"></span>
         <p class="card__line">קעקועים בעיצוב אישי<br>סטודיו {{ contact.studio }} · {{ contact.city }}</p>
         <div class="card__actions">
-          <a class="btn btn--ink" href="https://wa.me/{{ wa_number }}?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z"/></svg>וואטסאפ</a>
-          <a class="link" href="https://www.google.com/maps/search/?api=1&amp;query={{ maps_query }}" target="_blank" rel="noopener">{{ contact.street }}, {{ contact.city }}</a>
+          <a class="btn btn--ink" href="https://wa.me/{{ wa_number }}?text=%D7%94%D7%99%D7%99%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A7%D7%A2%D7%A7%D7%95%D7%A2" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.7-5A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .8a4 4 0 0 1-2.1-2.1l.8-1-1-2z"/></svg>וואטסאפ <span class="sr-only">(נפתח בחלון חדש)</span></a>
+          <a class="link" href="https://www.google.com/maps/search/?api=1&amp;query={{ maps_query }}" target="_blank" rel="noopener">{{ contact.street }}, {{ contact.city }} <span class="sr-only">(נפתח בחלון חדש)</span></a>
         </div>
       </div>
       <img class="card__logo" src="assets/img/logo-ink.webp" width="700" height="800" alt="איור של סהר מקעקע, עם אדמונית גדולה">
@@ -305,6 +299,7 @@
 
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="assets/js/main.js?v=38" defer></script>
+  <script src="assets/js/main.js?v={{ main_js_version }}" defer></script>
+  <script src="assets/js/a11y.js?v={{ a11y_js_version }}" defer></script>
 </body>
 </html>

@@ -1,0 +1,98 @@
+{#- תבנית עמוד הצהרת הנגישות. הפרטים המשתנים נמצאים ב-content/accessibility.yml ו-content/contact.yml -#}
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>הצהרת נגישות | Sahar Tzaig</title>
+  <meta name="description" content="הצהרת הנגישות של האתר של Sahar Tzaig, מקעקע ברמת גן: מה הונגש, איך משתמשים בתפריט הנגישות ואיך פונים בנושא נגישות.">
+  <link rel="canonical" href="https://omercohen4.github.io/tattoo-site/accessibility.html">
+  <meta name="theme-color" content="#0b0b0b">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+{% set intro = false %}{% include '_head_script.html' %}
+  <link rel="stylesheet" href="assets/css/style.css?v={{ css_version }}">
+</head>
+<body class="page">
+  <a class="skip" href="#main">דלג לתוכן</a>
+
+  <header class="page-bar">
+    <a class="page-bar__name" href="./" lang="en">Sahar Tzaig</a>
+    <a class="page-bar__back" href="./">חזרה לאתר</a>
+  </header>
+
+  <main id="main" class="statement">
+    <h1 class="h2">הצהרת נגישות</h1>
+    <p class="statement__updated">עודכנה לאחרונה: {{ a11y.updated }}</p>
+
+    <section aria-labelledby="s-general">
+      <h2 id="s-general">כללי</h2>
+      <p>אנחנו רוצים שכל אחד ואחת יוכלו לראות את העבודות, לקרוא על התהליך ולקבוע תור בקלות, כולל אנשים עם מוגבלות. האתר נבנה ומתוחזק כך שיעמוד בתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע״ג-2013, ובתקן הישראלי ת״י 5568, ברמת התאמה AA.</p>
+    </section>
+
+    <section aria-labelledby="s-done">
+      <h2 id="s-done">מה עשינו כדי שהאתר יהיה נגיש</h2>
+      <ul>
+        <li>אפשר לגלוש בכל האתר עם המקלדת בלבד, והאלמנט שנבחר מסומן במסגרת ברורה. בתחילת העמוד יש קישור "דלג לתוכן".</li>
+        <li>האתר מותאם לתוכנות הקראת מסך: לכל תמונה יש תיאור, הכותרות בנויות במבנה מסודר, ולכפתורים יש שמות ברורים.</li>
+        <li>קישורים שנפתחים בחלון חדש (וואטסאפ, אינסטגרם ומפות) מוכרזים ככאלה לתוכנות הקראת מסך.</li>
+        <li>הניגודיות בין הטקסט לרקע עומדת בדרישות התקן, גם כשהטקסט נמצא מעל תמונה.</li>
+        <li>האתר מותאם לטלפון, לטאבלט ולמחשב, וממשיך לעבוד כשמגדילים את התצוגה עד 200%.</li>
+        <li>מי שהגדיר במכשיר "הפחתת תנועה" מקבל את האתר בלי אנימציות.</li>
+        <li>השפה והכיוון של הטקסט מוגדרים, כדי שתוכנות הקראה יקראו נכון עברית ואנגלית.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="s-menu">
+      <h2 id="s-menu">תפריט הנגישות</h2>
+      <p>בפינה של כל עמוד יש כפתור עגול עם סמל נגישות. הוא פותח תפריט שבו אפשר:</p>
+      <ul>
+        <li>להגדיל את הטקסט בשלוש דרגות.</li>
+        <li>להפעיל ניגודיות גבוהה: רקע שחור נקי וטקסט לבן, בלי תמונות מאחורי הטקסט.</li>
+        <li>להדגיש את כל הקישורים והכפתורים.</li>
+        <li>לעבור לגופן פשוט וקריא במקום הגופנים המעוצבים.</li>
+        <li>לעצור את כל האנימציות.</li>
+      </ul>
+      <p>הבחירות נשמרות בדפדפן, ונשארות גם בביקור הבא.</p>
+    </section>
+
+    <section aria-labelledby="s-limits">
+      <h2 id="s-limits">מה עדיין עלול לא להיות נגיש</h2>
+      <p>אנחנו בודקים את האתר באופן שוטף, אבל ייתכן שנפספס משהו. בנוסף:</p>
+      <ul>
+        <li>תמונות של עבודות חדשות מקבלות לפעמים תיאור כללי בלבד ("קעקוע של Sahar Tzaig") ולא תיאור מפורט של הקעקוע.</li>
+        <li>וואטסאפ, אינסטגרם ומפות גוגל הם שירותים חיצוניים, ורמת הנגישות שלהם באחריות החברות שמפעילות אותם.</li>
+      </ul>
+      <p>נתקלתם בבעיה? נשמח לשמוע ולתקן.</p>
+    </section>
+
+    <section aria-labelledby="s-place">
+      <h2 id="s-place">נגישות הסטודיו</h2>
+      <p>הקעקועים נעשים בסטודיו {{ contact.studio }}, {{ contact.street }}, {{ contact.city }}.</p>
+      {% if a11y.studio_access %}<p>{{ a11y.studio_access | nl2br }}</p>
+      {% else %}<p>לפרטים על ההגעה לסטודיו ועל הסדרי הנגישות במקום, אפשר לפנות אלינו לפני התור ונעזור בכל מה שצריך.</p>
+      {% endif %}
+    </section>
+
+    <section aria-labelledby="s-contact">
+      <h2 id="s-contact">פנייה בנושא נגישות</h2>
+      <p>אם משהו באתר או בשירות לא נגיש לכם, או שאתם צריכים עזרה, אפשר לפנות לרכז הנגישות. נחזור אליכם בהקדם.</p>
+      <ul class="statement__contact">
+        <li>שם: {{ a11y.coordinator_name }}</li>
+        <li>טלפון: <a href="tel:{{ a11y_phone_tel }}" dir="ltr">{{ a11y.coordinator_phone }}</a></li>
+        {% if a11y.coordinator_email %}<li>מייל: <a href="mailto:{{ a11y.coordinator_email }}" dir="ltr">{{ a11y.coordinator_email }}</a></li>{% endif %}
+        <li>וואטסאפ: <a href="https://wa.me/{{ wa_number }}" target="_blank" rel="noopener" dir="ltr">{{ contact.phone }}<span class="sr-only"> (נפתח בחלון חדש)</span></a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__small">© <span lang="en">Sahar Tzaig</span> · {{ contact.city }} · <a class="footer__link" href="./">חזרה לאתר</a></p>
+  </footer>
+
+  <aside class="quick" aria-label="קיצורים">
+{% set base = '' %}{% include '_a11y.html' %}  </aside>
+
+  <script src="assets/js/a11y.js?v={{ a11y_js_version }}" defer></script>
+</body>
+</html>

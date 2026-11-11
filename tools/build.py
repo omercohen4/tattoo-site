@@ -133,11 +133,29 @@ def main():
     # JSON למידע שגוגל קורא, עם עברית קריאה
     env.filters['tojson'] = lambda v: Markup(json.dumps(v, ensure_ascii=False).replace('<', '\\u003c'))
     env.filters['nl2br'] = lambda v: Markup('<br>').join(escape(line) for line in str(v or '').strip().splitlines())
+    def asset_version(rel):
+        with open(path(rel), 'rb') as f:
+            return hashlib.md5(f.read()).hexdigest()[:8]
+
+    a11y = load('accessibility')
+    a11y['coordinator_phone'] = str(a11y.get('coordinator_phone') or contact['phone']).strip()
+    a11y['updated'] = str(a11y.get('updated') or '').strip()
+    shared = dict(
+        contact=contact, a11y=a11y,
+        wa_number='972' + local,
+        a11y_phone_tel='+972' + re.sub(r'\D', '', a11y['coordinator_phone']).lstrip('0'),
+        css_version=asset_version('assets/css/style.css'),
+        a11y_js_version=asset_version('assets/js/a11y.js'),
+        main_js_version=asset_version('assets/js/main.js'),
+    )
+    with open(path('accessibility.html'), 'w', encoding='utf-8') as f:
+        f.write(env.get_template('accessibility.html').render(**shared))
+
     html = env.get_template('index.html').render(
         works=tattoos + drawings,
         gallery=load('gallery'), about=load('about'), how=load('how'),
-        faq=load('faq'), reviews=load('reviews'), contact=contact,
-        wa_number='972' + local,
+        faq=load('faq'), reviews=load('reviews'), base='',
+        **shared,
         phone_intl='+972-' + (local[:2] + '-' + local[2:5] + '-' + local[5:] if len(local) == 9 else local),
         instagram_url='https://www.instagram.com/%s/' % contact['instagram'],
         maps_query=quote_plus('%s %s' % (contact.get('street', ''), contact.get('city', ''))),

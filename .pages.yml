@@ -228,3 +228,30 @@ content:
       - name: friday_close
         label: יום ו׳ סגירה
         type: string
+
+  - name: accessibility
+    label: הצהרת נגישות
+    description: הפרטים שמופיעים בעמוד הצהרת הנגישות. כדאי לעדכן את התאריך בכל שינוי.
+    type: file
+    path: content/accessibility.yml
+    format: yaml
+    fields:
+      - name: coordinator_name
+        label: שם רכז הנגישות
+        type: string
+        required: true
+      - name: coordinator_phone
+        label: טלפון של רכז הנגישות
+        type: string
+        required: true
+      - name: coordinator_email
+        label: מייל של רכז הנגישות
+        type: string
+      - name: studio_access
+        label: נגישות הסטודיו
+        type: text
+        description: "למשל: חניית נכים, כניסה בלי מדרגות, מעלית, שירותים נגישים. אם משהו לא נגיש, כותבים גם את זה."
+      - name: updated
+        label: תאריך עדכון אחרון
+        type: string
+        description: "למשל: 11.11.2026"

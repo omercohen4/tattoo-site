@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>הצהרת נגישות | Sahar Tzaig</title>
+  <meta name="description" content="הצהרת הנגישות של האתר של Sahar Tzaig, מקעקע ברמת גן: מה הונגש, איך משתמשים בתפריט הנגישות ואיך פונים בנושא נגישות.">
+  <link rel="canonical" href="https://omercohen4.github.io/tattoo-site/accessibility.html">
+  <meta name="theme-color" content="#0b0b0b">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      // הגדרות הנגישות שהמבקר בחר בביקור קודם, לפני שהעמוד מצויר
+      var a11y = {};
+      try { a11y = JSON.parse(localStorage.getItem('a11y')) || {}; } catch (e) {}
+      if (a11y.text) root.classList.add('a11y-t' + a11y.text);
+      ['contrast', 'links', 'font', 'calm'].forEach(function (k) { if (a11y[k]) root.classList.add('a11y-' + k); });
+      if (!a11y.calm && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        root.classList.add('motion');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="assets/css/style.css?v=d469e4a3">
+</head>
+<body class="page">
+  <a class="skip" href="#main">דלג לתוכן</a>
+
+  <header class="page-bar">
+    <a class="page-bar__name" href="./" lang="en">Sahar Tzaig</a>
+    <a class="page-bar__back" href="./">חזרה לאתר</a>
+  </header>
+
+  <main id="main" class="statement">
+    <h1 class="h2">הצהרת נגישות</h1>
+    <p class="statement__updated">עודכנה לאחרונה: 11.11.2026</p>
+
+    <section aria-labelledby="s-general">
+      <h2 id="s-general">כללי</h2>
+      <p>אנחנו רוצים שכל אחד ואחת יוכלו לראות את העבודות, לקרוא על התהליך ולקבוע תור בקלות, כולל אנשים עם מוגבלות. האתר נבנה ומתוחזק כך שיעמוד בתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע״ג-2013, ובתקן הישראלי ת״י 5568, ברמת התאמה AA.</p>
+    </section>
+
+    <section aria-labelledby="s-done">
+      <h2 id="s-done">מה עשינו כדי שהאתר יהיה נגיש</h2>
+      <ul>
+        <li>אפשר לגלוש בכל האתר עם המקלדת בלבד, והאלמנט שנבחר מסומן במסגרת ברורה. בתחילת העמוד יש קישור "דלג לתוכן".</li>
+        <li>האתר מותאם לתוכנות הקראת מסך: לכל תמונה יש תיאור, הכותרות בנויות במבנה מסודר, ולכפתורים יש שמות ברורים.</li>
+        <li>קישורים שנפתחים בחלון חדש (וואטסאפ, אינסטגרם ומפות) מוכרזים ככאלה לתוכנות הקראת מסך.</li>
+        <li>הניגודיות בין הטקסט לרקע עומדת בדרישות התקן, גם כשהטקסט נמצא מעל תמונה.</li>
+        <li>האתר מותאם לטלפון, לטאבלט ולמחשב, וממשיך לעבוד כשמגדילים את התצוגה עד 200%.</li>
+        <li>מי שהגדיר במכשיר "הפחתת תנועה" מקבל את האתר בלי אנימציות.</li>
+        <li>השפה והכיוון של הטקסט מוגדרים, כדי שתוכנות הקראה יקראו נכון עברית ואנגלית.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="s-menu">
+      <h2 id="s-menu">תפריט הנגישות</h2>
+      <p>בפינה של כל עמוד יש כפתור עגול עם סמל נגישות. הוא פותח תפריט שבו אפשר:</p>
+      <ul>
+        <li>להגדיל את הטקסט בשלוש דרגות.</li>
+        <li>להפעיל ניגודיות גבוהה: רקע שחור נקי וטקסט לבן, בלי תמונות מאחורי הטקסט.</li>
+        <li>להדגיש את כל הקישורים והכפתורים.</li>
+        <li>לעבור לגופן פשוט וקריא במקום הגופנים המעוצבים.</li>
+        <li>לעצור את כל האנימציות.</li>
+      </ul>
+      <p>הבחירות נשמרות בדפדפן, ונשארות גם בביקור הבא.</p>
+    </section>
+
+    <section aria-labelledby="s-limits">
+      <h2 id="s-limits">מה עדיין עלול לא להיות נגיש</h2>
+      <p>אנחנו בודקים את האתר באופן שוטף, אבל ייתכן שנפספס משהו. בנוסף:</p>
+      <ul>
+        <li>תמונות של עבודות חדשות מקבלות לפעמים תיאור כללי בלבד ("קעקוע של Sahar Tzaig") ולא תיאור מפורט של הקעקוע.</li>
+        <li>וואטסאפ, אינסטגרם ומפות גוגל הם שירותים חיצוניים, ורמת הנגישות שלהם באחריות החברות שמפעילות אותם.</li>
+      </ul>
+      <p>נתקלתם בבעיה? נשמח לשמוע ולתקן.</p>
+    </section>
+
+    <section aria-labelledby="s-place">
+      <h2 id="s-place">נגישות הסטודיו</h2>
+      <p>הקעקועים נעשים בסטודיו מאמא אינק, אבא הלל 7, רמת גן.</p>
+      <p>לפרטים על ההגעה לסטודיו ועל הסדרי הנגישות במקום, אפשר לפנות אלינו לפני התור ונעזור בכל מה שצריך.</p>
+      
+    </section>
+
+    <section aria-labelledby="s-contact">
+      <h2 id="s-contact">פנייה בנושא נגישות</h2>
+      <p>אם משהו באתר או בשירות לא נגיש לכם, או שאתם צריכים עזרה, אפשר לפנות לרכז הנגישות. נחזור אליכם בהקדם.</p>
+      <ul class="statement__contact">
+        <li>שם: סהר צאיג</li>
+        <li>טלפון: <a href="tel:+972526613189" dir="ltr">052-661-3189</a></li>
+        
+        <li>וואטסאפ: <a href="https://wa.me/972526613189" target="_blank" rel="noopener" dir="ltr">052-661-3189<span class="sr-only"> (נפתח בחלון חדש)</span></a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__small">© <span lang="en">Sahar Tzaig</span> · רמת גן · <a class="footer__link" href="./">חזרה לאתר</a></p>
+  </footer>
+
+  <aside class="quick" aria-label="קיצורים">
+    <button class="a11y-btn" type="button" aria-expanded="false" aria-controls="a11y" aria-label="תפריט נגישות">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M20.5 7.6c-.2-.6-.8-.9-1.4-.7-2.2.6-4.6 1-7.1 1s-4.9-.4-7.1-1c-.6-.2-1.2.1-1.4.7-.2.6.2 1.2.7 1.4 1.7.5 3.4.8 5.2 1v3.3l-1.7 7.1c-.1.6.2 1.2.8 1.3.6.1 1.2-.2 1.3-.8L11.4 16h1.2l1.6 4.9c.1.6.7.9 1.3.8.6-.1.9-.7.8-1.3L14.6 13.3V10c1.8-.2 3.5-.5 5.2-1 .5-.2.9-.8.7-1.4z"/></svg>
+    </button>
+    <div class="a11y" id="a11y" role="dialog" aria-labelledby="a11y-title" hidden>
+      <div class="a11y__head">
+        <h2 class="a11y__title" id="a11y-title">נגישות</h2>
+        <button class="a11y__close" type="button" data-a11y="close" aria-label="סגירת תפריט הנגישות">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="a11y__size" role="group" aria-labelledby="a11y-size-label">
+        <span id="a11y-size-label">גודל טקסט</span>
+        <button type="button" data-a11y="smaller" aria-label="הקטנת טקסט">א-</button>
+        <span class="a11y__level" aria-live="polite">רגיל</span>
+        <button type="button" data-a11y="bigger" aria-label="הגדלת טקסט">א+</button>
+      </div>
+      <button class="a11y__opt" type="button" data-a11y="contrast" aria-pressed="false">ניגודיות גבוהה</button>
+      <button class="a11y__opt" type="button" data-a11y="links" aria-pressed="false">הדגשת קישורים וכפתורים</button>
+      <button class="a11y__opt" type="button" data-a11y="font" aria-pressed="false">גופן קריא</button>
+      <button class="a11y__opt" type="button" data-a11y="calm" aria-pressed="false">עצירת אנימציות</button>
+      <div class="a11y__foot">
+        <button class="a11y__reset" type="button" data-a11y="reset">איפוס הגדרות</button>
+        <a class="a11y__statement" href="accessibility.html">הצהרת נגישות</a>
+      </div>
+    </div>
+  </aside>
+
+  <script src="assets/js/a11y.js?v=a0bbf9d5" defer></script>
+</body>
+</html>

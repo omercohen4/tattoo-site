@@ -1,6 +1,12 @@
 (function () {
   'use strict';
 
+  // פחות תנועה: לפי הגדרת המערכת של המבקר, או לפי "עצירת אנימציות" בתפריט הנגישות
+  function lessMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      document.documentElement.classList.contains('a11y-calm');
+  }
+
   var work = document.getElementById('work');
   var items = work ? Array.prototype.slice.call(work.querySelectorAll('.work__item')) : [];
 
@@ -28,8 +34,8 @@
     });
     if (pager) {
       pager.hidden = pages < 2;
-      pagerCount.textContent = current.page + ' / ' + pages;
-      pagerCount.setAttribute('aria-label', 'עמוד ' + current.page + ' מתוך ' + pages);
+      pagerCount.querySelector('.pager__num').textContent = current.page + ' / ' + pages;
+      pagerCount.querySelector('.pager__sr').textContent = 'עמוד ' + current.page + ' מתוך ' + pages;
       pager.querySelector('[data-page="prev"]').disabled = current.page === 1;
       pager.querySelector('[data-page="next"]').disabled = current.page === pages;
     }
@@ -61,7 +67,7 @@
   }
   function transition(change, toListStart, dir) {
     var gsap = window.gsap;
-    if (!gsap || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!gsap || lessMotion()) {
       update(change, toListStart);
       return;
     }
@@ -122,7 +128,7 @@
   }
 
   // גלילה חלקה לקישורים בתוך הדף (במקום scroll-behavior ב-CSS, שמתנגש עם ספריית האנימציות)
-  var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var smooth = !lessMotion();
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href^="#"]');
     if (!a || a.getAttribute('href').length < 2) return;
@@ -140,6 +146,8 @@
     menuBtn.setAttribute('aria-expanded', String(open));
     menuBtn.setAttribute('aria-label', open ? 'סגירת התפריט' : 'פתיחת התפריט');
     document.body.classList.toggle('menu-open', open);
+    // כשהתפריט פתוח, המקלדת וקוראי המסך נשארים בתוכו ובכפתור הסגירה, לא בעמוד שמאחוריו
+    document.querySelectorAll('main, footer, .quick').forEach(function (el) { el.inert = open; });
     if (open) {
       menu.hidden = false;
       requestAnimationFrame(function () { menu.classList.add('is-open'); });
@@ -194,7 +202,7 @@
       revNext.disabled = pos > max - 4;
     };
     var revGo = function (dir) {
-      var smoothRev = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var smoothRev = !lessMotion();
       reviewList.scrollBy({ left: -dir * revStep(), behavior: smoothRev ? 'smooth' : 'auto' });
     };
     revPrev.addEventListener('click', function () { revGo(-1); });
@@ -207,7 +215,7 @@
   // כרטיס הביקור: לחיצה על הלוגו בפס העליון פותחת אותו, והוא "גדל" מהלוגו למרכז המסך
   var logoBtn = document.querySelector('.bar__logo-btn');
   var card = document.getElementById('card');
-  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var calm = lessMotion();
 
   // תנועה מהמיקום והגודל של הלוגו אל המיקום של הכרטיס (או בחזרה)
   function fromLogo() {
@@ -253,18 +261,30 @@
 
   // מי שביקש פחות תנועה: הסרטון בפתיח עוצר על תמונת הפתיחה
   var heroVideo = document.querySelector('.hero__video');
-  if (heroVideo && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (heroVideo && lessMotion()) {
     heroVideo.removeAttribute('autoplay');
     heroVideo.pause();
   }
 
   // ===== תנועה (GSAP) =====
   // התוכן גלוי גם בלי סקריפט; האנימציות רק מוסיפות כניסה.
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = lessMotion();
   if (reduce || !window.gsap || !window.ScrollTrigger) return;
 
   var gsap = window.gsap;
   gsap.registerPlugin(window.ScrollTrigger);
+
+  // "עצירת אנימציות" בתפריט הנגישות: כל אנימציה קופצת למצב הסופי שלה ונעצרת
+  window.stopMotion = function () {
+    window.ScrollTrigger.getAll().forEach(function (st) {
+      if (st.animation) st.animation.progress(1);
+      st.kill();
+    });
+    gsap.globalTimeline.getChildren(true, true, true).forEach(function (t) { t.progress(1); });
+    document.documentElement.classList.remove('intro');
+    var h = document.querySelector('.hand');
+    if (h) h.classList.remove('is-working');
+  };
 
   // החתימה למעלה: סקיצה אפורה -> קווי דיו -> מילוי בדיו, לאורך כל הגלילה של העמוד
   var sigLines = document.querySelectorAll('.sig__line path');
