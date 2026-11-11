@@ -529,19 +529,9 @@ body.menu-open .hand-layer, body.menu-open .float-wa { visibility: hidden; }
 }
 
 /* ===== תפריט נגישות ===== */
-.a11y-btn {
-  position: fixed; right: 20px; bottom: 40px; z-index: 50;
-  width: 60px; height: 60px; padding: 0; display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; border: 2px solid #ffffff; background: #0b0b0b; color: #ffffff; cursor: pointer;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
-  transition: background-color .2s var(--ease), transform .2s var(--ease);
-}
-.a11y-btn:hover { background: #262422; }
-.a11y-btn:active { transform: scale(.94); }
-body.menu-open .a11y-btn { visibility: hidden; }
 .a11y {
-  position: fixed; right: 20px; bottom: 112px; z-index: 60;
-  width: min(320px, calc(100vw - 32px)); max-height: calc(100vh - var(--bar-h) - 140px); overflow-y: auto;
+  position: fixed; right: 20px; bottom: 40px; z-index: 60;
+  width: min(320px, calc(100vw - 32px)); max-height: calc(100vh - var(--bar-h) - 48px); overflow-y: auto;
   display: flex; flex-direction: column; gap: 10px;
   padding: 20px; border: 1px solid #3a3836; border-radius: var(--radius);
   background: var(--surface); color: var(--ink); box-shadow: 0 12px 40px rgba(0, 0, 0, .6);
@@ -570,9 +560,22 @@ body.menu-open .a11y-btn { visibility: hidden; }
 .a11y__reset { padding: 0 14px; }
 .a11y__statement { color: var(--ink); text-underline-offset: 3px; }
 .footer__link { color: inherit; text-underline-offset: 3px; }
+/* שורת "נגישות" בתפריט הצד: קטנה יותר מהקישורים, עם הסמל */
+.menu__a11y {
+  display: flex; align-items: center; gap: 10px; align-self: flex-start; margin-top: 20px; min-height: 44px; padding: 0;
+  border: 0; background: transparent; color: var(--muted); font: inherit; font-size: var(--step-lead); cursor: pointer;
+  transition: color .2s var(--ease);
+}
+.menu__a11y:hover { color: var(--ink); }
+.page-bar__links { display: flex; align-items: center; gap: 24px; }
+.page-bar__a11y {
+  display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 0;
+  border: 0; background: transparent; color: inherit; font: inherit; cursor: pointer;
+}
+/* "תפריט נגישות" ליד "דלג לתוכן": מופיע רק כשמגיעים אליו במקלדת */
+button.skip { border: 0; font: inherit; cursor: pointer; }
 @media (max-width: 760px) {
-  .a11y-btn { right: 14px; bottom: 32px; width: 56px; height: 56px; }
-  .a11y { right: 16px; bottom: 100px; }
+  .a11y { right: 16px; bottom: 24px; }
 }
 
 /* גודל טקסט: הכול באתר נמדד ב-rem, אז מגדילים את הבסיס */

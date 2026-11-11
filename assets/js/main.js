@@ -163,7 +163,7 @@
     });
     menu.addEventListener('click', function (e) {
       // לחיצה על קישור, או על האזור הכהה שמחוץ למגירה, סוגרת את התפריט
-      if (e.target.closest('a') || e.target === menu) setMenu(false);
+      if (e.target.closest('a, [data-a11y-open]') || e.target === menu) setMenu(false);
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && menuBtn.getAttribute('aria-expanded') === 'true') {

@@ -6,9 +6,11 @@
   var KEY = 'a11y';
   var MAX_TEXT = 3;
   var root = document.documentElement;
-  var btn = document.querySelector('.a11y-btn');
   var panel = document.getElementById('a11y');
-  if (!btn || !panel) return;
+  // מה שפותח את התפריט: שורת "נגישות" בתפריט הצד (או בפס העליון), והכפתור שמופיע במקלדת ליד "דלג לתוכן"
+  var openers = Array.prototype.slice.call(document.querySelectorAll('[data-a11y-open]'));
+  if (!panel || !openers.length) return;
+  var lastOpener = null;
 
   function read() {
     try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; }
@@ -33,20 +35,31 @@
   }
 
   function setOpen(open) {
-    btn.setAttribute('aria-expanded', String(open));
+    openers.forEach(function (o) { o.setAttribute('aria-expanded', String(open)); });
     panel.hidden = !open;
-    if (open) panel.querySelector('button').focus();
+    // התפריט הצדדי נסגר באותה לחיצה, אז ממתינים רגע לפני שמעבירים אליו את המקלדת
+    if (open) requestAnimationFrame(function () { panel.querySelector('button').focus(); });
   }
 
-  btn.addEventListener('click', function () {
-    setOpen(btn.getAttribute('aria-expanded') !== 'true');
+  // כשסוגרים, המקלדת חוזרת למה שפתח את התפריט. אם זה היה בתוך תפריט הצד (שכבר נסגר), חוזרים לכפתור התפריט
+  function returnFocus() {
+    var target = lastOpener;
+    if (!target || target.closest('.menu')) target = document.querySelector('.menu-btn') || document.getElementById('main');
+    if (target) target.focus();
+  }
+
+  openers.forEach(function (o) {
+    o.addEventListener('click', function () {
+      lastOpener = o;
+      setOpen(panel.hidden);
+    });
   });
 
   panel.addEventListener('click', function (e) {
     var b = e.target.closest('[data-a11y]');
     if (!b) return;
     var k = b.dataset.a11y;
-    if (k === 'close') { setOpen(false); btn.focus(); return; }
+    if (k === 'close') { setOpen(false); returnFocus(); return; }
     if (k === 'bigger') state.text = Math.min(MAX_TEXT, (state.text || 0) + 1);
     else if (k === 'smaller') state.text = Math.max(0, (state.text || 0) - 1);
     else if (k === 'reset') {
@@ -69,10 +82,10 @@
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
+    if (e.key === 'Escape' && !panel.hidden) { setOpen(false); returnFocus(); }
   });
   document.addEventListener('click', function (e) {
-    if (!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) setOpen(false);
+    if (!panel.hidden && !panel.contains(e.target) && !e.target.closest('[data-a11y-open]')) setOpen(false);
   });
 
   apply();
