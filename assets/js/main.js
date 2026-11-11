@@ -326,8 +326,17 @@
     }
 
     // קודם כל הקווים מסתיימים, ורק אז מתחיל המילוי, כדי שהמחט לא תקפוץ קדימה
-    var inkTl = gsap.timeline({ paused: true, onUpdate: function () { moveHand(inkTl.progress()); } })
-      .to(sigLines, { strokeDashoffset: 0, ease: 'none', duration: 0.18, stagger: 0.03 }, 0)
+    var inkTl = gsap.timeline({ paused: true, onUpdate: function () { moveHand(inkTl.progress()); } });
+    // האותיות נמשכות אחת אחרי השנייה, לא במקביל, כדי שהמחט תהיה תמיד על האות שנמשכת עכשיו.
+    // כל אות מקבלת זמן לפי האורך שלה, כך שהמחט זזה במהירות קבועה
+    var totalLen = lens.reduce(function (a, b) { return a + b; }, 0);
+    var at = 0;
+    sigLines.forEach(function (path, i) {
+      var d = 0.44 * lens[i] / totalLen;
+      inkTl.to(path, { strokeDashoffset: 0, ease: 'none', duration: d }, at);
+      at += d;
+    });
+    inkTl
       .to(clip, { attr: { width: fullWidth }, ease: 'none', duration: 0.5 }, 0.46)
       .to('.sig__stencil', { opacity: 0, ease: 'none', duration: 0.2 }, 0.76);
 
