@@ -154,7 +154,7 @@
       <div class="work__side">
         <div class="work__head">
           <figure class="work__portrait">
-            <img src="assets/img/sahar-portrait.jpg" width="1048" height="1310" fetchpriority="high" alt="סהר מקעקע בסטודיו, רכון מעל הלקוח עם מכונת הקעקועים">
+            <img src="assets/img/sahar-portrait.jpg" srcset="assets/img/sahar-portrait-460.jpg 460w, assets/img/sahar-portrait.jpg 1048w" sizes="(max-width: 760px) 140px, 230px" width="1048" height="1310" fetchpriority="high" alt="סהר מקעקע בסטודיו, רכון מעל הלקוח עם מכונת הקעקועים">
           </figure>
           <h2 class="work__title" id="work-title"><span class="sr-only">עבודות: </span>{{ gallery.title }}</h2>
           <p class="work__note">{{ gallery.note | nl2br }}</p>
@@ -169,10 +169,10 @@
 
       <ol class="work__list">
         {% for item in works %}
-        <li class="work__item" data-style="{{ item.type }}">
+        <li class="work__item{% if item.offset and not item.hidden %} is-offset{% endif %}" data-style="{{ item.type }}"{% if item.hidden %} hidden{% endif %}>
           <figure>
             <div class="work__media">
-              <img src="{{ item.src }}" width="{{ item.width }}" height="{{ item.height }}" loading="lazy" alt="{{ item.alt }}">
+              <img src="{{ item.src }}" srcset="{{ item.srcset }}" sizes="(max-width: 760px) calc(50vw - 22px), calc((100vw - 64px) * .29)" width="{{ item.width }}" height="{{ item.height }}" loading="lazy" alt="{{ item.alt }}">
             </div>
           </figure>
         </li>
@@ -275,7 +275,7 @@
           <a class="link" href="https://www.google.com/maps/search/?api=1&amp;query={{ maps_query }}" target="_blank" rel="noopener">{{ contact.street }}, {{ contact.city }} <span class="sr-only">(נפתח בחלון חדש)</span></a>
         </div>
       </div>
-      <img class="card__logo" src="assets/img/logo-ink.webp" width="700" height="800" alt="איור של סהר מקעקע, עם אדמונית גדולה">
+      <img class="card__logo" src="assets/img/logo-ink.webp" width="700" height="800" loading="lazy" alt="איור של סהר מקעקע, עם אדמונית גדולה">
     </div>
   </dialog>
 

@@ -23,6 +23,11 @@ from PIL import Image, ImageOps
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORK_DIR = 'assets/img/work'
+SIZES_DIR = 'assets/img/sizes'   # גרסאות קטנות של התמונות, לטלפונים. נוצרות אוטומטית
+SIZES = (460, 690)
+PER_PAGE = 6                      # כמו בגלריה ב-main.js
+# הכתובת שבה האתר יושב. כשעוברים לדומיין משלו, משנים ל-'/'
+ROOT_PATH = '/tattoo-site/'
 W, H = 920, 1150
 
 
@@ -91,6 +96,29 @@ def process_image(rel):
     return out
 
 
+def variants(rel, version, width):
+    """יוצר גרסאות קטנות של תמונה (אם עוד אין) ומחזיר את ה-srcset שלה."""
+    os.makedirs(path(SIZES_DIR), exist_ok=True)
+    base = os.path.splitext(os.path.basename(rel))[0]
+    parts = []
+    for w in SIZES:
+        if w >= width:
+            continue
+        out = '%s/%s.%s.%d.jpg' % (SIZES_DIR, base, version, w)
+        if not os.path.exists(path(out)):
+            with Image.open(path(rel)) as im:
+                im = im.convert('RGB')
+                im = im.resize((w, round(im.height * w / im.width)), Image.LANCZOS)
+                im.save(path(out), quality=80, optimize=True, progressive=True)
+        parts.append('%s %dw' % (out, w))
+        USED_SIZES.add(out)
+    parts.append('%s?v=%s %dw' % (rel, version, width))
+    return ', '.join(parts)
+
+
+USED_SIZES = set()
+
+
 def gallery(name, kind, default_alt):
     data = load(name)
     items = data.get('items') or []
@@ -110,6 +138,11 @@ def gallery(name, kind, default_alt):
         with open(path(rel), 'rb') as f:
             version = hashlib.md5(f.read()).hexdigest()[:8]  # תמונה שהוחלפה תיטען מחדש גם אם הדפדפן שמר את הישנה
         works.append({'type': kind, 'src': rel + '?v=' + version, 'width': w, 'height': h,
+                      'srcset': variants(rel, version, w),
+                      # רק העמוד הראשון של הקעקועים גלוי בטעינה. השאר מוסתרים כבר ב-HTML,
+                      # כדי שהדפדפן לא יוריד אותם לפני שמישהו עובר אליהם
+                      'hidden': kind != 'tattoo' or len(works) >= PER_PAGE,
+                      'offset': len(works) % 2 == 1,
                       'alt': (item.get('alt') or '').strip() or default_alt})
     if changed:
         save(name, data)
@@ -119,6 +152,12 @@ def gallery(name, kind, default_alt):
 def main():
     tattoos = gallery('tattoos', 'tattoo', 'קעקוע של Sahar Tzaig')
     drawings = gallery('drawings', 'drawing', 'ציור בעיפרון של Sahar Tzaig')
+
+    # גרסאות קטנות של תמונות שכבר לא באתר
+    if os.path.isdir(path(SIZES_DIR)):
+        for f in os.listdir(path(SIZES_DIR)):
+            if SIZES_DIR + '/' + f not in USED_SIZES:
+                os.remove(path(SIZES_DIR, f))
 
     contact = load('contact')
     for k in ('weekdays_open', 'weekdays_close', 'friday_open', 'friday_close'):
@@ -150,6 +189,8 @@ def main():
     )
     with open(path('accessibility.html'), 'w', encoding='utf-8') as f:
         f.write(env.get_template('accessibility.html').render(**shared))
+    with open(path('404.html'), 'w', encoding='utf-8') as f:
+        f.write(env.get_template('404.html').render(root=ROOT_PATH, **shared))
 
     html = env.get_template('index.html').render(
         works=tattoos + drawings,

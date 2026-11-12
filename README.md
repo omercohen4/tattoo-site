@@ -10,7 +10,7 @@
 |---|---|
 | `content/*.yml` | התוכן: קעקועים, ציורים, טקסטים, ביקורות ופרטי קשר. את זה עורכים |
 | `templates/index.html` | המבנה של העמוד. שינויים בעיצוב ובמבנה נעשים כאן |
-| `index.html` | **נבנה אוטומטית. לא לערוך ישירות**, כל שינוי בו יימחק בבנייה הבאה |
+| `index.html`, `accessibility.html`, `404.html` | **נבנים אוטומטית. לא לערוך ישירות**, כל שינוי בהם יימחק בבנייה הבאה |
 | `tools/build.py` | הבנייה: מכין תמונות חדשות ובונה את `index.html` |
 | `.github/workflows/build.yml` | מריץ את הבנייה ב-GitHub אחרי כל שינוי בתוכן |
 | `.pages.yml` | הגדרות פאנל הניהול (Pages CMS): המסכים והשדות שסהר רואה |
@@ -18,6 +18,8 @@
 | `assets/js/main.js` | הגלריה, התפריט, כרטיס הביקור והאנימציות |
 | `assets/vendor/` | GSAP ו-ScrollTrigger (ספריית האנימציות) |
 | `assets/img/work/` | התמונות של הגלריה |
+| `assets/img/sizes/` | גרסאות קטנות של תמונות הגלריה, לטלפונים. נוצרות ונמחקות אוטומטית |
+| `assets/js/a11y.js` | תפריט הנגישות |
 
 ## איך שינוי מגיע לאתר
 
@@ -36,4 +38,4 @@ python3 tools/build.py
 
 - הביקורות בחלק "מה אומרים עליי" זמניות. להחליף בביקורות אמיתיות
 - המשפטים שגוגל מציג (`description`, `og:description` ובלוק `application/ld+json`) נמצאים ב-`templates/index.html`, לא בפאנל
-- כשיהיה דומיין: לעדכן את הכתובת ב-`canonical`, ב-`og:url`, ב-`og:image`, בבלוק `application/ld+json`, ב-`robots.txt` וב-`sitemap.xml`
+- כשיהיה דומיין: לעדכן את הכתובת ב-`canonical`, ב-`og:url`, ב-`og:image`, בבלוק `application/ld+json`, ב-`robots.txt` וב-`sitemap.xml`, ואת `ROOT_PATH` ב-`tools/build.py` ל-`'/'`

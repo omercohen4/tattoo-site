@@ -610,6 +610,14 @@ html.a11y-calm *, html.a11y-calm *::before, html.a11y-calm *::after {
   transition: none !important; animation: none !important; scroll-behavior: auto !important;
 }
 
+/* ===== עמוד "לא נמצא" ===== */
+.lost {
+  min-height: calc(100svh - var(--bar-h)); max-width: 760px;
+  padding: clamp(48px, 8vw, 120px) var(--m); display: flex; flex-direction: column; justify-content: center; gap: 24px;
+}
+.lost__code { font-family: 'Pirata One', serif; font-size: clamp(6rem, 4rem + 10vw, 12rem); line-height: .8; color: var(--muted); }
+.lost__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 8px; }
+
 /* ===== עמוד הצהרת הנגישות ===== */
 .page-bar {
   position: sticky; top: 0; z-index: 40; height: var(--bar-h);

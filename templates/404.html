@@ -1,0 +1,35 @@
+{#- עמוד "לא נמצא". GitHub Pages מציג אותו לכל כתובת שלא קיימת, גם בתוך תיקיות,
+    ולכן כל הקישורים כאן מתחילים מ-root (הכתובת הבסיסית של האתר) ולא יחסיים -#}
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>העמוד לא נמצא | Sahar Tzaig</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0b0b0b">
+  <link rel="icon" href="{{ root }}favicon.ico" sizes="48x48">
+{% set intro = false %}{% include '_head_script.html' %}
+  <link rel="stylesheet" href="{{ root }}assets/css/style.css?v={{ css_version }}">
+</head>
+<body class="page">
+{% include '_skip.html' %}
+  <header class="page-bar">
+    <a class="page-bar__name" href="{{ root }}" lang="en">Sahar Tzaig</a>
+    <span class="page-bar__links"><a class="page-bar__back" href="{{ root }}">לאתר</a></span>
+  </header>
+
+  <main id="main" class="lost">
+    <p class="lost__code" aria-hidden="true">404</p>
+    <h1 class="h2">העמוד הזה לא נמצא</h1>
+    <p class="lead">ייתכן שהקישור ישן או שנפלה בו טעות. כל העבודות, הפרטים וקביעת התור נמצאים בעמוד הראשי.</p>
+    <div class="lost__actions">
+      <a class="btn" href="{{ root }}">לעמוד הראשי</a>
+      <a class="link" href="https://wa.me/{{ wa_number }}" target="_blank" rel="noopener">לכתוב לסהר בוואטסאפ<span class="sr-only"> (נפתח בחלון חדש)</span></a>
+    </div>
+  </main>
+
+{% set base = root %}{% include '_a11y.html' %}
+  <script src="{{ root }}assets/js/a11y.js?v={{ a11y_js_version }}" defer></script>
+</body>
+</html>

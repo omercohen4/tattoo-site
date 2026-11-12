@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>העמוד לא נמצא | Sahar Tzaig</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0b0b0b">
+  <link rel="icon" href="/tattoo-site/favicon.ico" sizes="48x48">
+  <script>
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      // הגדרות הנגישות שהמבקר בחר בביקור קודם, לפני שהעמוד מצויר
+      var a11y = {};
+      try { a11y = JSON.parse(localStorage.getItem('a11y')) || {}; } catch (e) {}
+      if (a11y.text) root.classList.add('a11y-t' + a11y.text);
+      ['contrast', 'links', 'font', 'calm'].forEach(function (k) { if (a11y[k]) root.classList.add('a11y-' + k); });
+      if (!a11y.calm && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        root.classList.add('motion');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="/tattoo-site/assets/css/style.css?v=c7b26b25">
+</head>
+<body class="page">
+  <a class="skip" href="#main">דלג לתוכן</a>
+  <button class="skip" type="button" data-a11y-open aria-controls="a11y" aria-expanded="false">תפריט נגישות</button>
+
+  <header class="page-bar">
+    <a class="page-bar__name" href="/tattoo-site/" lang="en">Sahar Tzaig</a>
+    <span class="page-bar__links"><a class="page-bar__back" href="/tattoo-site/">לאתר</a></span>
+  </header>
+
+  <main id="main" class="lost">
+    <p class="lost__code" aria-hidden="true">404</p>
+    <h1 class="h2">העמוד הזה לא נמצא</h1>
+    <p class="lead">ייתכן שהקישור ישן או שנפלה בו טעות. כל העבודות, הפרטים וקביעת התור נמצאים בעמוד הראשי.</p>
+    <div class="lost__actions">
+      <a class="btn" href="/tattoo-site/">לעמוד הראשי</a>
+      <a class="link" href="https://wa.me/972526613189" target="_blank" rel="noopener">לכתוב לסהר בוואטסאפ<span class="sr-only"> (נפתח בחלון חדש)</span></a>
+    </div>
+  </main>
+
+  <div class="a11y" id="a11y" role="dialog" aria-labelledby="a11y-title" hidden>
+    <div class="a11y__head">
+      <h2 class="a11y__title" id="a11y-title">נגישות</h2>
+      <button class="a11y__close" type="button" data-a11y="close" aria-label="סגירת תפריט הנגישות">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="a11y__size" role="group" aria-labelledby="a11y-size-label">
+      <span id="a11y-size-label">גודל טקסט</span>
+      <button type="button" data-a11y="smaller" aria-label="הקטנת טקסט">א-</button>
+      <span class="a11y__level" aria-live="polite">רגיל</span>
+      <button type="button" data-a11y="bigger" aria-label="הגדלת טקסט">א+</button>
+    </div>
+    <button class="a11y__opt" type="button" data-a11y="contrast" aria-pressed="false">ניגודיות גבוהה</button>
+    <button class="a11y__opt" type="button" data-a11y="links" aria-pressed="false">הדגשת קישורים וכפתורים</button>
+    <button class="a11y__opt" type="button" data-a11y="font" aria-pressed="false">גופן קריא</button>
+    <button class="a11y__opt" type="button" data-a11y="calm" aria-pressed="false">עצירת אנימציות</button>
+    <div class="a11y__foot">
+      <button class="a11y__reset" type="button" data-a11y="reset">איפוס הגדרות</button>
+      <a class="a11y__statement" href="/tattoo-site/accessibility.html">הצהרת נגישות</a>
+    </div>
+  </div>
+
+  <script src="/tattoo-site/assets/js/a11y.js?v=01fb4ca0" defer></script>
+</body>
+</html>
