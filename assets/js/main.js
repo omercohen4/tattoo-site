@@ -212,6 +212,123 @@
     revUpdate();
   }
 
+  // תמונה בגדול: לחיצה על עבודה פותחת אותה על כל המסך. אפשר לעבור בין העבודות מאותו סוג
+  // בחצים, במקלדת או בהחלקה, והתמונה "גדלה" מהמקום שלה בגלריה
+  var lb = document.getElementById('lightbox');
+  if (lb && work) {
+    var lbImg = lb.querySelector('.lightbox__img');
+    var lbCount = lb.querySelector('.lightbox__count');
+    var lbPrev = lb.querySelector('[data-step="-1"]');
+    var lbNext = lb.querySelector('[data-step="1"]');
+    var lbList = [];
+    var lbIndex = 0;
+
+    var thumbOf = function (li) { return li.querySelector('.work__media img'); };
+
+    // התמונה המלאה. עד שהיא נטענת מוצגת הגרסה שכבר בגלריה, כדי שלא יהיה רגע ריק
+    var showImage = function (i, dir) {
+      lbIndex = i;
+      var thumb = thumbOf(lbList[i]);
+      lbImg.src = thumb.currentSrc || thumb.src;
+      lbImg.alt = thumb.alt;
+      var full = new Image();
+      full.src = thumb.getAttribute('src');
+      full.decode().then(function () { if (lbIndex === i) lbImg.src = full.src; }, function () {});
+      lbCount.textContent = (i + 1) + ' / ' + lbList.length;
+      lbPrev.disabled = i === 0;
+      lbNext.disabled = i === lbList.length - 1;
+      // טוענים מראש את השכנות, כדי שהמעבר יהיה מיידי
+      [i - 1, i + 1].forEach(function (j) { if (lbList[j]) new Image().src = thumbOf(lbList[j]).getAttribute('src'); });
+      if (dir && !lessMotion()) {
+        // "הבאה" נמצאת משמאל (עברית), אז היא נכנסת משמאל
+        lbImg.animate([{ opacity: 0, transform: 'translateX(' + (-48 * dir) + 'px)' }, { opacity: 1, transform: 'none' }],
+          { duration: 320, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      }
+    };
+
+    // מהמקום והגודל של התמונה בגלריה אל המקום שלה במסך המלא
+    var fromThumb = function (li) {
+      var a = thumbOf(li).getBoundingClientRect();
+      var b = lbImg.getBoundingClientRect();
+      if (!a.width || !b.width || li.hidden) return null;
+      return [
+        { transform: 'translate(' + ((a.left + a.width / 2) - (b.left + b.width / 2)) + 'px,' + ((a.top + a.height / 2) - (b.top + b.height / 2)) + 'px) scale(' + (a.width / b.width) + ')' },
+        { transform: 'none' }
+      ];
+    };
+
+    var openLightbox = function (li) {
+      lbList = items.filter(function (x) { return x.dataset.style === current.type; });
+      lb.showModal();
+      document.documentElement.classList.add('lb-open');
+      showImage(lbList.indexOf(li));
+      lb.querySelector('.lightbox__close').focus();
+      if (lessMotion()) return;
+      lb.animate([{ backgroundColor: 'rgba(8,8,8,0)' }, { backgroundColor: 'rgba(8,8,8,.96)' }], { duration: 350 });
+      var frames = fromThumb(li);
+      if (frames) lbImg.animate(frames, { duration: 420, easing: 'cubic-bezier(.2,.7,.2,1)' });
+    };
+
+    var closing = false;
+    var closeLightbox = function () {
+      if (closing || !lb.open) return;
+      closing = true;
+      var li = lbList[lbIndex];
+      // אם עברו לעבודה שנמצאת בעמוד אחר של הגלריה, הגלריה עוברת לעמוד שלה
+      var page = Math.floor(lbIndex / PER_PAGE) + 1;
+      var finish = function () {
+        lb.close();
+        document.documentElement.classList.remove('lb-open');
+        closing = false;
+        if (li.hidden) update(function () { current.page = page; }, true);
+        li.querySelector('.work__zoom').focus({ preventScroll: true });
+      };
+      if (lessMotion()) { finish(); return; }
+      var frames = fromThumb(li);
+      lb.animate([{ backgroundColor: 'rgba(8,8,8,.96)' }, { backgroundColor: 'rgba(8,8,8,0)' }], { duration: 300, fill: 'forwards' });
+      var anim = frames
+        ? lbImg.animate(frames.slice().reverse(), { duration: 320, easing: 'cubic-bezier(.4,0,.6,1)', fill: 'forwards' })
+        : lbImg.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' });
+      anim.onfinish = function () {
+        finish();
+        lb.getAnimations().concat(lbImg.getAnimations()).forEach(function (a) { a.cancel(); });
+      };
+    };
+
+    var step = function (dir) {
+      var j = lbIndex + dir;
+      if (j >= 0 && j < lbList.length) showImage(j, dir);
+    };
+
+    work.addEventListener('click', function (e) {
+      var zoom = e.target.closest('.work__zoom');
+      if (zoom) openLightbox(zoom.closest('.work__item'));
+    });
+    var swiped = false;
+    lb.addEventListener('click', function (e) {
+      if (swiped) { swiped = false; return; } // החלקה שהסתיימה על הרקע היא לא לחיצה לסגירה
+      var nav = e.target.closest('.lightbox__nav');
+      if (nav) { step(+nav.dataset.step); return; }
+      // לחיצה על כפתור הסגירה, או על הרקע מסביב לתמונה
+      if (e.target.closest('.lightbox__close') || e.target === lb || e.target.classList.contains('lightbox__stage')) closeLightbox();
+    });
+    lb.addEventListener('cancel', function (e) { e.preventDefault(); closeLightbox(); }); // Esc
+    lb.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') step(1);
+      if (e.key === 'ArrowRight') step(-1);
+    });
+
+    // החלקה באצבע: ימינה = הבאה (כמו דפדוף בעברית), שמאלה = הקודמת
+    var sx = null, sy = 0;
+    lb.addEventListener('pointerdown', function (e) { if (e.isPrimary) { sx = e.clientX; sy = e.clientY; } });
+    lb.addEventListener('pointerup', function (e) {
+      if (sx === null) return;
+      var dx = e.clientX - sx, dy = e.clientY - sy;
+      sx = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { swiped = true; step(dx > 0 ? 1 : -1); }
+    });
+  }
+
   // כרטיס הביקור: לחיצה על הלוגו בפס העליון פותחת אותו, והוא "גדל" מהלוגו למרכז המסך
   var logoBtn = document.querySelector('.bar__logo-btn');
   var card = document.getElementById('card');

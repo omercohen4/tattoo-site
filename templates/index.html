@@ -173,6 +173,7 @@
           <figure>
             <div class="work__media">
               <img src="{{ item.src }}" srcset="{{ item.srcset }}" sizes="(max-width: 760px) calc(50vw - 22px), calc((100vw - 64px) * .29)" width="{{ item.width }}" height="{{ item.height }}" loading="lazy" alt="{{ item.alt }}">
+              <button class="work__zoom" type="button" aria-label="הגדלת התמונה: {{ item.alt }}" aria-haspopup="dialog"></button>
             </div>
           </figure>
         </li>
@@ -260,6 +261,17 @@
 
 
   <!-- כרטיס הביקור: נפתח בלחיצה על הלוגו בפס העליון -->
+  <!-- תמונה בגדול: נפתח בלחיצה על עבודה בגלריה -->
+  <dialog class="lightbox" id="lightbox" aria-label="תצוגת עבודה בגדול">
+    <figure class="lightbox__stage">
+      <img class="lightbox__img" src="data:," alt="">
+    </figure>
+    <p class="lightbox__count" aria-live="polite"></p>
+    <button class="lightbox__close" type="button" aria-label="סגירה"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" data-step="-1" aria-label="העבודה הקודמת"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <button class="lightbox__nav lightbox__nav--next" type="button" data-step="1" aria-label="העבודה הבאה"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+  </dialog>
+
   <dialog class="card" id="card" aria-labelledby="card-name">
     <button class="card__close" type="button" aria-label="סגירת כרטיס הביקור">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
